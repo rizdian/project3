@@ -13,6 +13,7 @@ class Auth extends CI_Controller
 		parent::__construct();
 		$this->load->database();
 		$this->load->library(array('ion_auth', 'form_validation'));
+        $this->load->library('Template');
 		$this->load->helper(array('url', 'language'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
@@ -48,7 +49,8 @@ class Auth extends CI_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth/index', $this->data);
+            $this->template->show("auth", "index", $this->data);
+//			$this->_render_page('auth/index', $this->data);
 		}
 	}
 
@@ -547,6 +549,7 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 
+//            $this->template->show("auth", "create_user", $this->data);
 			$this->_render_page('auth/create_user', $this->data);
 		}
 	}
@@ -703,6 +706,7 @@ class Auth extends CI_Controller
 			'type' => 'password'
 		);
 
+//        $this->template->show("auth", "edit_user", $this->data);
 		$this->_render_page('auth/edit_user', $this->data);
 	}
 
