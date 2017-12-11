@@ -16,6 +16,12 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="<?php echo base_url(); ?>auth">
+                    <i class="fa fa-user"></i> <span>User</span>
+                    </span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->
