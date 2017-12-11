@@ -92,6 +92,7 @@ class Karyawan extends CI_Controller
             'lama_kontrak' => set_value('lama_kontrak'),
             'divisi' => set_value('divisi'),
         );
+        $this->template->addJS(base_url('assets/js/karyawan.js'));
         $this->template->show("karyawan", "karyawan_form", $data);
 //        $this->load->view('karyawan/karyawan_form', $data);
     }
@@ -146,7 +147,9 @@ class Karyawan extends CI_Controller
                 'lama_kontrak' => set_value('lama_kontrak', $row->lama_kontrak),
                 'divisi' => set_value('divisi', $row->divisi),
             );
-            $this->load->view('karyawan/karyawan_form', $data);
+            $this->template->addJS(base_url('assets/js/karyawan.js'));
+            $this->template->show("karyawan", "karyawan_form", $data);
+//            $this->load->view('karyawan/karyawan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('karyawan'));
@@ -200,8 +203,8 @@ class Karyawan extends CI_Controller
         $this->form_validation->set_rules('nip', 'nip', 'trim|required');
         $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required');
         $this->form_validation->set_rules('nama_depan', 'nama depan', 'trim|required');
-        $this->form_validation->set_rules('nama_tengah', 'nama tengah', 'trim|required');
-        $this->form_validation->set_rules('nama_belakang', 'nama belakang', 'trim|required');
+        $this->form_validation->set_rules('nama_tengah', 'nama tengah', 'trim');
+        $this->form_validation->set_rules('nama_belakang', 'nama belakang', 'trim');
         $this->form_validation->set_rules('tempat_lahir', 'tempat lahir', 'trim|required');
         $this->form_validation->set_rules('tanggal_lahir', 'tanggal lahir', 'trim|required');
         $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');

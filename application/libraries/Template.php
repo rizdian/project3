@@ -22,7 +22,7 @@ class Template
         $this->addJS( base_url('template/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/fastclick/lib/fastclick.js') );
         $this->addJS( base_url('template/adminlte/dist/js/adminlte.min.js') );
-        $this->addJS( base_url('template/adminlte/dist/js/pages/dashboard.js') );
+//        $this->addJS( base_url('template/adminlte/dist/js/pages/dashboard.js') );
         $this->addJS( base_url('template/adminlte/dist/js/demo.js') );
 
         $this->addJS( base_url('template/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') );
@@ -76,6 +76,7 @@ class Template
     private function load_JS_and_css()
     {
         $this->data['html_head'] = '';
+        $this->data['js_file'] = '';
 
         if ( $this->css_file )
         {
@@ -89,7 +90,7 @@ class Template
         {
             foreach( $this->js_file as $js )
             {
-                $this->data['html_head'] .= "<script type='text/javascript' src=".$js->file."></script>". "\n";
+                $this->data['js_file'] .= "<script type='text/javascript' src=".$js->file."></script>". "\n";
             }
         }
     }
