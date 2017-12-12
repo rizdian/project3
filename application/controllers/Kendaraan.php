@@ -10,6 +10,7 @@ class Kendaraan extends CI_Controller
         parent::__construct();
         $this->load->model('Kendaraan_model');
         $this->load->library('form_validation');
+        $this->load->library('Template');
     }
 
     public function index()
@@ -40,7 +41,8 @@ class Kendaraan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->load->view('kendaraan/kendaraan_list', $data);
+        $this->template->show("kendaraan", "kendaraan_list", $data);
+//        $this->load->view('kendaraan/kendaraan_list', $data);
     }
 
     public function read($id) 
@@ -55,7 +57,8 @@ class Kendaraan extends CI_Controller
 		'foto' => $row->foto,
 		'status' => $row->status,
 	    );
-            $this->load->view('kendaraan/kendaraan_read', $data);
+            $this->template->show("kendaraan", "kendaraan_read", $data);
+//            $this->load->view('kendaraan/kendaraan_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kendaraan'));
@@ -72,9 +75,11 @@ class Kendaraan extends CI_Controller
 	    'nama' => set_value('nama'),
 	    'warna' => set_value('warna'),
 	    'foto' => set_value('foto'),
-	    'status' => set_value('status'),
+	    //'status' => set_value('status'),
 	);
-        $this->load->view('kendaraan/kendaraan_form', $data);
+        $this->template->addJS(base_url('assets/js/kendaraan.js'));
+        $this->template->show("kendaraan", "kendaraan_form", $data);
+        //$this->load->view('kendaraan/kendaraan_form', $data);
     }
     
     public function create_action() 
@@ -89,7 +94,7 @@ class Kendaraan extends CI_Controller
 		'nama' => $this->input->post('nama',TRUE),
 		'warna' => $this->input->post('warna',TRUE),
 		'foto' => $this->input->post('foto',TRUE),
-		'status' => $this->input->post('status',TRUE),
+		//'status' => $this->input->post('status',TRUE),
 	    );
 
             $this->Kendaraan_model->insert($data);
@@ -113,7 +118,8 @@ class Kendaraan extends CI_Controller
 		'foto' => set_value('foto', $row->foto),
 		'status' => set_value('status', $row->status),
 	    );
-            $this->load->view('kendaraan/kendaraan_form', $data);
+            $this->template->show("kendaraan", "kendaraan_form", $data);
+//            $this->load->view('kendaraan/kendaraan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('kendaraan'));
@@ -161,7 +167,7 @@ class Kendaraan extends CI_Controller
 	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
 	$this->form_validation->set_rules('warna', 'warna', 'trim|required');
 	$this->form_validation->set_rules('foto', 'foto', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
+//	$this->form_validation->set_rules('status', 'status', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

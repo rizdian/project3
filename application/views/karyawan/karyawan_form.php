@@ -78,16 +78,14 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <!-- select -->
                             <div class="form-group">
-                                <!-- select -->
-                                <div class="form-group">
-                                    <label>Status  <?php echo form_error('status') ?></label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="tetap">Tetap</option>
-                                        <option value="kontrak">Kontrak</option>
-                                    </select>
-                                    <input type="hidden" id="temp_status" value="<?php echo $page_var['status']; ?>"/>
-                                </div>
+                                <label>Status <?php echo form_error('status') ?></label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="tetap">Tetap</option>
+                                    <option value="kontrak">Kontrak</option>
+                                </select>
+                                <input type="hidden" id="temp_status" value="<?php echo $page_var['status']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -111,7 +109,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <input type="hidden" name="id" value="<?php echo $page_var['id']; ?>"/>
-                                <button type="submit" id='btn' value="<?php echo $page_var['button'] ?>" class="btn btn-primary"><?php echo $page_var['button'] ?></button>
+                                <button type="submit" id='btn' value="<?php echo $page_var['button'] ?>"
+                                        class="btn btn-primary"><?php echo $page_var['button'] ?></button>
                                 <a href="<?php echo site_url('karyawan') ?>" class="btn btn-default">Cancel</a>
                             </div>
                         </div>

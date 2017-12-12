@@ -41,7 +41,7 @@
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
-                        <table class="table table-bordered" style="margin-bottom: 10px">
+                        <table class="table table-striped" style="margin-bottom: 10px">
                             <tr>
                                 <th>No</th>
                                 <th>Nip</th>
