@@ -12,7 +12,7 @@
                 <div class="box-header with-border">
                     <div class="col-md-4">
                         <?php echo anchor(site_url('auth/create_user'), 'Create User', 'class="btn btn-primary"'); ?>
-                        <?php echo anchor(site_url('auth/create_group'), 'Create Group', 'class="btn btn-primary"'); ?>
+                        <?php /*echo anchor(site_url('auth/create_group'), 'Create Group', 'class="btn btn-primary"'); */?>
                     </div>
                     <div class="col-md-4 text-center">
                         <div id="infoMessage"><?php echo $page_var['message']; ?></div>
@@ -39,7 +39,8 @@
                                         <td><?php echo htmlspecialchars($user->email, ENT_QUOTES, 'UTF-8'); ?></td>
                                         <td>
                                             <?php foreach ($user->groups as $group): ?>
-                                                <?php echo anchor("auth/edit_group/" . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8')); ?>
+                                                <?php echo $group->name?>
+                                                <?php /*echo anchor("auth/edit_group/" . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8')); */?>
                                                 <br/>
                                             <?php endforeach ?>
                                         </td>

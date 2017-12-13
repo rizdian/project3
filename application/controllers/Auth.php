@@ -446,20 +446,17 @@ class Auth extends CI_Controller
 	 */
 	public function create_user()
 	{
-		$this->data['title'] = $this->lang->line('create_user_heading');
-
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('auth', 'refresh');
 		}
 
+        $this->load->model('Karyawan_model');
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$this->data['identity_column'] = $identity_column;
 
 		// validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'trim|required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'trim|required');
 		if ($identity_column !== 'email')
 		{
 			$this->form_validation->set_rules('identity', $this->lang->line('create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
@@ -469,22 +466,20 @@ class Auth extends CI_Controller
 		{
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
 		if ($this->form_validation->run() === TRUE)
 		{
+            $row = $this->Karyawan_model->get_by_id($this->input->post('karyawan'));
 			$email = strtolower($this->input->post('email'));
 			$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
 			$password = $this->input->post('password');
 
 			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
-				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone'),
+				'first_name' => $row->nama_depan,
+				'last_name' => $row->nama_belakang,
+                'id_karyawan' => $this->input->post('karyawan'),
 			);
 		}
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
@@ -500,57 +495,40 @@ class Auth extends CI_Controller
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array(
-				'name' => 'first_name',
-				'id' => 'first_name',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('first_name'),
-			);
-			$this->data['last_name'] = array(
-				'name' => 'last_name',
-				'id' => 'last_name',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('last_name'),
-			);
 			$this->data['identity'] = array(
+			    'class' => 'form-control',
 				'name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('identity'),
 			);
 			$this->data['email'] = array(
+                'class' => 'form-control',
 				'name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['company'] = array(
-				'name' => 'company',
-				'id' => 'company',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('company'),
-			);
-			$this->data['phone'] = array(
-				'name' => 'phone',
-				'id' => 'phone',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone'),
-			);
 			$this->data['password'] = array(
+                'class' => 'form-control',
 				'name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password'),
 			);
 			$this->data['password_confirm'] = array(
+                'class' => 'form-control',
 				'name' => 'password_confirm',
 				'id' => 'password_confirm',
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 
-//            $this->template->show("auth", "create_user", $this->data);
-			$this->_render_page('auth/create_user', $this->data);
+
+            $karyawan = $this->Karyawan_model->get_not_in_login();
+            $this->data['karyawan'] = $karyawan;
+            $this->template->show("auth", "create_user", $this->data);
+//			$this->_render_page('auth/create_user', $this->data);
 		}
 	}
 
@@ -561,8 +539,6 @@ class Auth extends CI_Controller
 	 */
 	public function edit_user($id)
 	{
-		$this->data['title'] = $this->lang->line('edit_user_heading');
-
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
 			redirect('auth', 'refresh');
@@ -571,12 +547,6 @@ class Auth extends CI_Controller
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
-
-		// validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim|required');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -593,15 +563,8 @@ class Auth extends CI_Controller
 				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
 			}
 
-			if ($this->form_validation->run() === TRUE)
+			if ($this->form_validation->run() === TRUE || !$this->input->post('password'))
 			{
-				$data = array(
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'company' => $this->input->post('company'),
-					'phone' => $this->input->post('phone'),
-				);
-
 				// update the password if it was posted
 				if ($this->input->post('password'))
 				{
@@ -623,7 +586,7 @@ class Auth extends CI_Controller
 						{
 							$this->ion_auth->add_to_group($grp, $id);
 						}
-
+                        $data['update_on'] = date("Y-m-d H:i:s");
 					}
 				}
 
@@ -671,43 +634,24 @@ class Auth extends CI_Controller
 		$this->data['groups'] = $groups;
 		$this->data['currentGroups'] = $currentGroups;
 
-		$this->data['first_name'] = array(
-			'name'  => 'first_name',
-			'id'    => 'first_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('first_name', $user->first_name),
-		);
-		$this->data['last_name'] = array(
-			'name'  => 'last_name',
-			'id'    => 'last_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('last_name', $user->last_name),
-		);
-		$this->data['company'] = array(
-			'name'  => 'company',
-			'id'    => 'company',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company', $user->company),
-		);
-		$this->data['phone'] = array(
-			'name'  => 'phone',
-			'id'    => 'phone',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('phone', $user->phone),
-		);
 		$this->data['password'] = array(
+		    'class' => 'form-control',
 			'name' => 'password',
 			'id'   => 'password',
 			'type' => 'password'
 		);
 		$this->data['password_confirm'] = array(
+            'class' => 'form-control',
 			'name' => 'password_confirm',
 			'id'   => 'password_confirm',
 			'type' => 'password'
 		);
 
-//        $this->template->show("auth", "edit_user", $this->data);
-		$this->_render_page('auth/edit_user', $this->data);
+        $this->template->addCSS(base_url('template/adminlte/plugins/iCheck/square/blue.css'));
+        $this->template->addJS(base_url('template/adminlte/plugins/iCheck/icheck.min.js'));
+        $this->template->addJS(base_url('assets/js/user.js'));
+        $this->template->show("auth", "edit_user", $this->data);
+//		$this->_render_page('auth/edit_user', $this->data);
 	}
 
 	/**

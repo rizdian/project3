@@ -88,6 +88,15 @@ class Karyawan_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function  get_not_in_login(){
+        $query = $this->db->query("select karyawan.* from karyawan
+                                    left join users
+                                    ON karyawan.id = users.id_karyawan
+                                    where users.id_karyawan IS NULL");
+
+        return $query->result();
+    }
+
 }
 
 /* End of file Karyawan_model.php */
