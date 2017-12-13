@@ -1,8 +1,8 @@
 // A $( document ).ready() block.
 $(document).ready(function () {
     if ($('#status').val() === 'tetap'){
-        $('#lama_kontrak').prop("disabled", true);
-        $('#lama_kontrak').val('0');
+        $('#lama_kontrak').prop("readonly", true);
+        $('#lama_kontrak').val(0);
     }
 });
 

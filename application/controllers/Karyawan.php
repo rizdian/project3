@@ -200,8 +200,8 @@ class Karyawan extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('nip', 'nip', 'trim|required');
-        $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required');
+        $this->form_validation->set_rules('nip', 'nip', 'trim|required|is_unique[karyawan.nip]');
+        $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required|is_unique[karyawan.no_ktp]');
         $this->form_validation->set_rules('nama_depan', 'nama depan', 'trim|required');
         $this->form_validation->set_rules('nama_tengah', 'nama tengah', 'trim');
         $this->form_validation->set_rules('nama_belakang', 'nama belakang', 'trim');
