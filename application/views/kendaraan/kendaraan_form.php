@@ -12,7 +12,7 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="<?php echo $page_var['action']; ?>" method="post">
+                <form role="form" action="<?php echo $page_var['action']; ?>" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="varchar">No Polisi <?php echo form_error('no_polisi') ?></label>
@@ -30,18 +30,14 @@
                                    value="<?php echo $page_var['warna']; ?>"/>
                         </div>
                         <div class="form-group">
-                            <label for="blob">Foto <?php echo form_error('foto') ?></label>
-                            <input type="text" class="form-control" name="foto" id="foto" placeholder="Foto"
+                            <label for="varchar">Foto <?php echo form_error('foto') ?></label>
+                            <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto"
                                    value="<?php echo $page_var['foto']; ?>"/>
+                            <input type="hidden" name="filelama" class="form-control" value="<?php echo $page_var['foto'];?>">
                         </div>
-                        <!--<div class="form-group">
-                            <label>Status <?php /*echo form_error('status') */?></label>
-                            <select class="form-control" id="status" name="status">
-                                <option value="0">Available</option>
-                                <option value="1">Not-Available</option>
-                            </select>
-                            <input type="hidden" id="temp_status" value="<?php /*echo $page_var['status']; */?>"/>
-                        </div>-->
+                        <div class="form-group">
+                            <img src="<?php echo base_url()?>assets/images/<?php echo $page_var['foto'];?>" class="img-thumbnail" style="width:50%"></div>
+                        </td>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

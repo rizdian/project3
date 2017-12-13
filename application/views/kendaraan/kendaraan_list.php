@@ -59,7 +59,7 @@
                                     <td><?php echo $kendaraan->no_polisi ?></td>
                                     <td><?php echo $kendaraan->nama ?></td>
                                     <td><?php echo $kendaraan->warna ?></td>
-                                    <td><?php echo $kendaraan->foto ?></td>
+                                    <td><img src="assets/images/<?php echo $kendaraan->foto ?>" class="img-thumbnail" style="width:40%"></td>
                                     <td><?php if($kendaraan->status == 0) echo 'Available'; else echo 'Not-Available';?></td>
                                     <td style="text-align:center" width="200px">
                                         <?php

@@ -29,7 +29,7 @@
                             </tr>
                             <tr>
                                 <td>Foto</td>
-                                <td><?php echo $page_var['foto']; ?></td>
+                                <td><img src="<?php echo base_url()?>assets/images/<?php echo $page_var['foto'];?>" class="img-thumbnail" style="width:25%"></td>
                             </tr>
                             <tr>
                                 <td>Status</td>
