@@ -16,6 +16,10 @@
                     <div class="box-body">
                         <div id="infoMessage" class="col-md-12"><?php echo $page_var['message']; ?></div>
                         <div class="form-group">
+                            <div class="col-md-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-6">
                                 <label for="varchar">Karyawan</label>
                                 <select class="form-control" name="karyawan">

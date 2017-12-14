@@ -18,14 +18,15 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs">Alexander Pierce</span>
+
+                        <span class="hidden-xs"><?php echo $page_header->nama_depan;?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <p>
-                                Alexander Pierce - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <?php echo $page_header->nama_depan;?> - <?php echo $page_header->nama_belakang;?>
+                                <small>NIP : <?php echo $page_header->nip;?></small>
                             </p>
                         </li>
                         <!-- Menu Body -->

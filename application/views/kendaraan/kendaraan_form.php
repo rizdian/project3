@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label for="varchar">Foto <?php echo form_error('foto') ?></label>
-                            <input type="file" class="form-control" name="foto" id="foto" placeholder="Foto"
+                            <input type="file" name="foto" id="foto" placeholder="Foto"
                                    value="<?php echo $page_var['foto']; ?>"/>
                             <input type="hidden" name="filelama" class="form-control" value="<?php echo $page_var['foto'];?>">
                         </div>
