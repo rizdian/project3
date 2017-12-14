@@ -12,9 +12,10 @@ class Template
     {
         $this->CI =& get_instance();
         $this->CI->load->helper('url');
+        $this->CI->load->library('ion_auth');
+        $this->CI->load->model('Peminjaman_model');
 
         // default CSS and JS that they must be load in any pages
-
         $this->addJS( base_url('template/adminlte/bower_components/jquery/dist/jquery.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/jquery-ui/jquery-ui.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js') );
@@ -22,9 +23,8 @@ class Template
         $this->addJS( base_url('template/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/fastclick/lib/fastclick.js') );
         $this->addJS( base_url('template/adminlte/dist/js/adminlte.min.js') );
-//        $this->addJS( base_url('template/adminlte/dist/js/pages/dashboard.js') );
         $this->addJS( base_url('template/adminlte/dist/js/demo.js') );
-
+        $this->addJS( base_url('template/adminlte/bower_components/moment/min/moment.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') );
 
         $this->addCSS( base_url('template/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css') );
@@ -45,6 +45,10 @@ class Template
         }
         else
         {
+            $isLogin = $this->CI->ion_auth->user()->row()->user_id;
+            $getUser = $this->CI->Karyawan_model->get_by_id($isLogin);
+
+            $this->data['page_header'] = $getUser;
             $this->data['page_var'] = $data;
             $this->load_JS_and_css();
             $this->init_menu();

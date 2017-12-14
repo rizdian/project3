@@ -9,8 +9,11 @@ class Karyawan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Karyawan_model');
-        $this->load->library('form_validation');
-        $this->load->library('Template');
+        $this->load->library(array('ion_auth', 'form_validation','Template'));
+        if (!$this->ion_auth->is_admin())
+        {
+            redirect('auth', 'refresh');
+        }
     }
 
     public function index()

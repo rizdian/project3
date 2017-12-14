@@ -12,8 +12,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library(array('ion_auth', 'form_validation'));
-        $this->load->library('Template');
+		$this->load->library(array('ion_auth', 'form_validation','Template'));
 		$this->load->helper(array('url', 'language'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
@@ -34,8 +33,10 @@ class Auth extends CI_Controller
 		}
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
+		    $data = ['heading' => 'yo','message' => 'You must be an administrator to view this page.'];
+            $this->template->show("errors/html", "error_403");
 			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+//			return show_error('You must be an administrator to view this page.');
 		}
 		else
 		{
@@ -416,7 +417,11 @@ class Auth extends CI_Controller
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
-			$this->_render_page('auth/deactivate_user', $this->data);
+            $this->template->addCSS(base_url('template/adminlte/plugins/iCheck/square/blue.css'));
+            $this->template->addJS(base_url('template/adminlte/plugins/iCheck/icheck.min.js'));
+            $this->template->addJS(base_url('assets/js/user.js'));
+            $this->template->show("auth", "deactivate_user", $this->data);
+//			$this->_render_page('auth/deactivate_user', $this->data);
 		}
 		else
 		{
