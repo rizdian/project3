@@ -74,6 +74,13 @@ class Kendaraan_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function get_available(){
+        $query = $this->db->query(" SELECT	* 
+                                    FROM    kendaraan
+                                    WHERE	status = '0'");
+        return $query->result();
+    }
+
 }
 
 /* End of file Kendaraan_model.php */

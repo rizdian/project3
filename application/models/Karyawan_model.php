@@ -97,6 +97,19 @@ class Karyawan_model extends CI_Model
         return $query->result();
     }
 
+    function get_not_in_formulir(){
+        $query = $this->db->query("SELECT 		karyawan.* 
+                                    FROM 			karyawan
+                                    LEFT JOIN 	peminjaman
+                                    ON 			karyawan.id = peminjaman.id_peminjam
+                                    WHERE 		peminjaman.id_peminjam IS NULL 
+                                    OR 			peminjaman.status_kembali = '1' 
+                                    AND 			karyawan.id NOT IN (SELECT 	DISTINCT id_peminjam 
+                                                                        FROM 		peminjaman 
+                                                                        WHERE 	status_kembali = '0') ");
+        return $query->result();
+    }
+
 }
 
 /* End of file Karyawan_model.php */
