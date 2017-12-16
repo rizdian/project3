@@ -39,6 +39,11 @@ class Template
 
     public function show( $folder, $page, $data=null, $menu=true )
     {
+        if (!$this->CI->ion_auth->logged_in())
+        {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        }
         if ( ! file_exists('application/views/'.$folder.'/'.$page.'.php' ) )
         {
             show_404();
