@@ -17,8 +17,8 @@ class Karyawan extends CI_Controller
 
     public function index()
     {
-        $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
+        $q = urldecode($this->input->get('q', TRUE));
 
         if ($q <> '') {
             $config['base_url'] = base_url() . 'karyawan/index.html?q=' . urlencode($q);

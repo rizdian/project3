@@ -73,17 +73,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <a href="#" class="btn btn-primary">Total Record : <?php echo $page_var['total_rows'] ?></a>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <?php echo $page_var['pagination'] ?>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>

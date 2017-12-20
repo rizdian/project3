@@ -18,39 +18,26 @@
                         </div>
                     </div>
                     <div class="col-md-3 text-right">
-                        <form action="<?php echo site_url('kendaraan/index'); ?>" class="form-inline" method="get">
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="q"
-                                       value="<?php echo $page_var['q']; ?>">
-                                <span class="input-group-btn">
-                                        <?php
-                                        if ($page_var['q'] <> '') {
-                                            ?>
-                                            <a href="<?php echo site_url('kendaraan'); ?>"
-                                               class="btn btn-default">Reset</a>
-                                            <?php
-                                        }
-                                        ?>
-                                    <button class="btn btn-primary" type="submit">Search</button>
-                                    </span>
-                            </div>
-                        </form>
+
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form">
                     <div class="box-body">
-                        <table class="table table-striped" style="margin-bottom: 10px">
+                        <table id="datatable" class="table table-striped" style="margin-bottom: 10px">
+                            <thead>
                             <tr>
-                                <th>No</th>
-                                <th>No Polisi</th>
-                                <th>Nama</th>
-                                <th>Warna</th>
-                                <th>Foto</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th style="text-align: center">No.</th>
+                                <th style="text-align: center">No Polisi</th>
+                                <th style="text-align: center">Nama</th>
+                                <th style="text-align: center">Warna</th>
+                                <th style="text-align: center">Foto</th>
+                                <th style="text-align: center">Status</th>
+                                <th style="text-align: center">Action</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             <?php
                             foreach ($page_var['kendaraan_data'] as $kendaraan) {
                                 ?>
@@ -59,33 +46,27 @@
                                     <td><?php echo $kendaraan->no_polisi ?></td>
                                     <td><?php echo $kendaraan->nama ?></td>
                                     <td><?php echo $kendaraan->warna ?></td>
-                                    <td><img src="assets/images/<?php echo $kendaraan->foto ?>" class="img-thumbnail" style="width:40%"></td>
-                                    <td><?php if($kendaraan->status == 0) echo 'Available'; else echo 'Not-Available';?></td>
+                                    <td><img src="assets/images/<?php echo $kendaraan->foto ?>" class="img-thumbnail"
+                                             style="width:40%"></td>
+                                    <td><?php if ($kendaraan->status == 0) echo 'Available'; else echo 'Not-Available'; ?></td>
                                     <td style="text-align:center" width="200px">
                                         <?php
-                                        echo anchor(site_url('kendaraan/read/' . $kendaraan->id), 'Read');
-                                        echo ' | ';
-                                        echo anchor(site_url('kendaraan/update/' . $kendaraan->id), 'Update');
-                                        echo ' | ';
-                                        echo anchor(site_url('kendaraan/delete/' . $kendaraan->id), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                                        echo anchor(site_url('kendaraan/read/' . $kendaraan->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';
+                                        echo anchor(site_url('kendaraan/update/' . $kendaraan->id) ,'<i class="glyphicon glyphicon-pencil"></i>','title="Edit", class="btn btn-xs btn-warning"'); echo ' ';
+                                        echo anchor(site_url('kendaraan/delete/' . $kendaraan->id),'<i class="glyphicon glyphicon-trash"></i>','title="Hapus", class="btn btn-xs btn-danger", onclick="javasciprt: return confirm(\'Apakah Anda yakin ?\')"');
                                         ?>
                                     </td>
                                 </tr>
                                 <?php
                             }
                             ?>
+                            </tbody>
                         </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="row">
-                            <div class="col-md-6">
-                                <a href="#" class="btn btn-primary">Total Record
-                                    : <?php echo $page_var['total_rows'] ?></a>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <?php echo $page_var['pagination'] ?>
-                            </div>
+
                         </div>
                     </div>
                 </form>
