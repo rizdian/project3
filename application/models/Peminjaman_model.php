@@ -30,22 +30,8 @@ class Peminjaman_model extends CI_Model
     }
 
     // get total rows
-    function total_rows($q = NULL)
+    function total_rows()
     {
-        $this->db->like('id', $q);
-        $this->db->or_like('nip', $q);
-        $this->db->or_like('no_ktp', $q);
-        $this->db->or_like('nama_depan', $q);
-        $this->db->or_like('nama_tengah', $q);
-        $this->db->or_like('nama_belakang', $q);
-        $this->db->or_like('tempat_lahir', $q);
-        $this->db->or_like('tanggal_lahir', $q);
-        $this->db->or_like('alamat', $q);
-        $this->db->or_like('tahun_masuk', $q);
-        $this->db->or_like('status', $q);
-        $this->db->or_like('lama_kontrak', $q);
-        $this->db->or_like('divisi', $q);
-        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
@@ -88,5 +74,13 @@ class Peminjaman_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
+    }
+
+    function get_status_0(){
+        $query = $this->db->query("SELECT *
+                                     FROM peminjaman
+                                    WHERE status_pinjam = '0'");
+        $hasil = $query->num_rows();
+        return $hasil;
     }
 }

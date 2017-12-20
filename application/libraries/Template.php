@@ -13,7 +13,7 @@ class Template
         $this->CI =& get_instance();
         $this->CI->load->helper('url');
         $this->CI->load->library('ion_auth');
-        $this->CI->load->model('Peminjaman_model');
+        $this->CI->load->model('Karyawan_model');
 
         // default CSS and JS that they must be load in any pages
         $this->addJS( base_url('template/adminlte/bower_components/jquery/dist/jquery.min.js') );
@@ -26,6 +26,7 @@ class Template
         $this->addJS( base_url('template/adminlte/dist/js/demo.js') );
         $this->addJS( base_url('template/adminlte/bower_components/moment/min/moment.min.js') );
         $this->addJS( base_url('template/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') );
+        $this->addJS( base_url('template/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js') );
 
         $this->addCSS( base_url('template/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css') );
         $this->addCSS( base_url('template/adminlte/bower_components/font-awesome/css/font-awesome.min.css') );
@@ -35,6 +36,7 @@ class Template
 
         $this->addCSS( base_url('template/adminlte/bower_components/Ionicons/css/ionicons.min.css') );
         $this->addCSS( base_url('template/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') );
+        $this->addCSS( base_url('template/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css') );
     }
 
     public function show( $folder, $page, $data=null, $menu=true )

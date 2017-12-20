@@ -28,29 +28,31 @@ class Kendaraan_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('no_polisi', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('warna', $q);
-	$this->db->or_like('foto', $q);
-	$this->db->or_like('status', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('no_polisi', $q);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('warna', $q);
+        $this->db->or_like('foto', $q);
+        $this->db->or_like('status', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('no_polisi', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('warna', $q);
-	$this->db->or_like('foto', $q);
-	$this->db->or_like('status', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('no_polisi', $q);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('warna', $q);
+        $this->db->or_like('foto', $q);
+        $this->db->or_like('status', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -74,11 +76,21 @@ class Kendaraan_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-    function get_available(){
+    function get_available()
+    {
         $query = $this->db->query(" SELECT	* 
                                     FROM    kendaraan
                                     WHERE	status = '0'");
         return $query->result();
+    }
+
+    function get_count_available()
+    {
+        $query = $this->db->query(" SELECT	* 
+                                    FROM    kendaraan
+                                    WHERE	status = '0'");
+        $hasil = $query->num_rows();
+        return $hasil;
     }
 
 }
