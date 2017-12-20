@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         Kendaraan
-        <small>Create</small>
+        <small><?php echo $page_var['button'] ?></small>
     </h1>
 </section>
 <section class="content">

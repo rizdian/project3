@@ -47,20 +47,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Tanggal Pinjam <?php echo form_error('tgl_pinjam') ?></label>
-                                <input type="text" class="form-control" name="tgl_pinjam" id="tgl_pinjam"
-                                       value="<?php echo $page_var['tgl_pinjam']; ?>"/>
+                            <label for="date">Tanggal Pinjam <?php echo form_error('tgl_pinjam') ?> - Tanggal
+                                Kembali <?php echo form_error('tgl_kembali') ?></label>
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class="input-sm form-control" name="tgl_pinjam" id="tgl_pinjam"
+                                       value="<?php echo $page_var['tgl_pinjam']; ?>" readonly/>
+                                <span class="input-group-addon">sampai</span>
+                                <input type="text" class="input-sm form-control" name="tgl_kembali"
+                                       value="<?php echo $page_var['tgl_kembali']; ?>" readonly/>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Tanggal Kembali <?php echo form_error('tgl_kembali') ?></label>
-                                <input type="text" class="form-control" name="tgl_kembali" id="tgl_kembali"
-                                       value="<?php echo $page_var['tgl_kembali']; ?>"/>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="keterangan">Keterangan</label>
                                 <textarea class="form-control" rows="3" name="keterangan" id="keterangan"></textarea>

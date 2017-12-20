@@ -9,9 +9,8 @@ class Karyawan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Karyawan_model');
-        $this->load->library(array('ion_auth', 'form_validation','Template'));
-        if (!$this->ion_auth->is_admin())
-        {
+        $this->load->library(array('ion_auth', 'form_validation', 'Template'));
+        if (!$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         }
     }
@@ -44,7 +43,10 @@ class Karyawan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-
+        $this->template->addCSS(base_url('assets/plugins/datatables/dataTables.bootstrap.css'));
+        $this->template->addJS(base_url('assets/plugins/datatables/jquery.dataTables.min.js'));
+        $this->template->addJS(base_url('assets/plugins/datatables/dataTables.bootstrap.min.js'));
+        $this->template->addJS(base_url('assets/js/karyawan.js'));
         $this->template->show("karyawan", "karyawan_list", $data);
         //$this->load->view('karyawan/karyawan_list', $data);
     }
@@ -68,6 +70,7 @@ class Karyawan extends CI_Controller
                 'lama_kontrak' => $row->lama_kontrak,
                 'divisi' => $row->divisi,
             );
+
             $this->template->show("karyawan", "karyawan_read", $data);
             //$this->load->view('karyawan/karyawan_read', $data);
         } else {

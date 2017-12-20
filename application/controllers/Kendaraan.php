@@ -157,7 +157,7 @@ class Kendaraan extends CI_Controller
 
     public function update_action()
     {
-        $this->_rules();
+        $this->_rules(true);
 
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
@@ -225,9 +225,13 @@ class Kendaraan extends CI_Controller
         }
     }
 
-    public function _rules()
+    public function _rules($update = false)
     {
-        $this->form_validation->set_rules('no_polisi', 'no polisi', 'trim|required|is_unique[kendaraan.no_polisi]');
+        if ($update){
+            $this->form_validation->set_rules('no_polisi', 'no polisi', 'trim|required');
+        }else{
+            $this->form_validation->set_rules('no_polisi', 'no polisi', 'trim|required|is_unique[kendaraan.no_polisi]');
+        }
         $this->form_validation->set_rules('nama', 'nama', 'trim|required');
         $this->form_validation->set_rules('warna', 'warna', 'trim|required');
 
