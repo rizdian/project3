@@ -18,7 +18,7 @@
                     <div class="icon">
                         <i class="ion ion-clipboard"></i>
                     </div>
-                    <a href="<?php echo site_url('peminjaman') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo site_url('peminjaman/verifikasi') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

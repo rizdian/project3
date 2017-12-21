@@ -51,10 +51,16 @@ class Template
         if (!file_exists('application/views/' . $folder . '/' . $page . '.php')) {
             show_404();
         } else {
-            $isLogin = $this->CI->ion_auth->user()->row()->user_id;
+            $isLogin = $this->CI->ion_auth->user()->row()->id_karyawan;
             $getUser = $this->CI->Karyawan_model->get_by_id($isLogin);
 
-            $this->data['page_header'] = $getUser;
+            if(isset($getUser)){
+                $this->data['page_header'] = $getUser;
+            }else{
+                $this->data['page_header'] = (object) array('nama_depan' => 'Super',
+                                                            'nama_belakang' => 'Admin',
+                                                            'nip' => '000000000');
+            }
             $this->data['page_var'] = $data;
             $this->load_JS_and_css();
             $this->init_menu();

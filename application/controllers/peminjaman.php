@@ -11,9 +11,10 @@ class peminjaman extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(array('ion_auth', 'form_validation','Template'));
-        $this->load->model(['Peminjaman_model','Kendaraan_model']);
+        $this->load->library(array('ion_auth', 'form_validation', 'Template'));
+        $this->load->model(['Peminjaman_model', 'Kendaraan_model']);
     }
+
     public function index()
     {
         $this->load->model(['Karyawan_model']);
@@ -28,13 +29,15 @@ class peminjaman extends CI_Controller
             'tgl_pinjam' => set_value('tgl_pinjam'),
             'tgl_kembali' => set_value('tgl_kembali'),
             'keterangan' => set_value('keterangan'),
-            'karyawan'  => $karyawan,
+            'karyawan' => $karyawan,
             'kendaraan' => $kendaraan,
         );
         $this->template->addJS(base_url('assets/js/peminjaman.js'));
         $this->template->show("transaksi", "formulir_form", $data);
     }
-    public function create_action(){
+
+    public function create_action()
+    {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -58,7 +61,8 @@ class peminjaman extends CI_Controller
         }
     }
 
-    public function data(){
+    public function data()
+    {
         $peminjaman = $this->Peminjaman_model->get_all();
 
         $data = array(
@@ -69,9 +73,14 @@ class peminjaman extends CI_Controller
         $this->template->addJS(base_url('assets/js/peminjaman.js'));
         $this->template->show("transaksi", "formulir_list", $data);
     }
-    public function verifikasi(){
 
-        $peminjaman = $this->Peminjaman_model->get_all();
+    public function verifikasi()
+    {
+        if (!$this->ion_auth->is_admin())
+        {
+            redirect('auth', 'refresh');
+        }
+        $peminjaman = $this->Peminjaman_model->get_status_list_0();
 
         $data = array(
             'peminjaman_data' => $peminjaman,
@@ -80,6 +89,29 @@ class peminjaman extends CI_Controller
 
         $this->template->addJS(base_url('assets/js/peminjaman.js'));
         $this->template->show("transaksi", "formulir_verifikasi", $data);
+    }
+
+    public function verifikasiAcc($id)
+    {
+        $peminjaman = $this->Peminjaman_model->get_acc($id);
+        if ($peminjaman) {
+            $this->session->set_flashdata('message', 'Peminjaman Telah Di Acc');
+            redirect(site_url('peminjaman/verifikasi'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('peminjaman/verifikasi'));
+        }
+    }
+    public function verifikasiTolak($id)
+    {
+        $peminjaman = $this->Peminjaman_model->get_tolak($id);
+        if ($peminjaman) {
+            $this->session->set_flashdata('message', 'Peminjaman Telah Di Tolak');
+            redirect(site_url('peminjaman/verifikasi'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('peminjaman/verifikasi'));
+        }
     }
 
     public function _rules()
