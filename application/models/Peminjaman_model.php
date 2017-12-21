@@ -18,8 +18,18 @@ class Peminjaman_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS penyetuju
+                                          FROM peminjaman p
+                                    INNER JOIN kendaraan ke
+                                            ON p.id_kendaraan = ke.id
+                                    INNER JOIN karyawan ka
+                                            ON p.id_peminjam = ka.id
+                                    LEFT JOIN karyawan ku
+                                            ON p.id_penyetuju = ku.id");
+        return $query->result();
+
+        /*$this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();*/
     }
 
     // get data by id
@@ -32,7 +42,8 @@ class Peminjaman_model extends CI_Model
     // get total rows
     function total_rows()
     {
-        return $this->db->count_all_results();
+        $query = $this->db->get($this->table)->result();
+        return count($query);
     }
 
     // get data with limit and search

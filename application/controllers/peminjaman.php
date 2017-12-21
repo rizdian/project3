@@ -58,6 +58,30 @@ class peminjaman extends CI_Controller
         }
     }
 
+    public function data(){
+        $peminjaman = $this->Peminjaman_model->get_all();
+
+        $data = array(
+            'peminjaman_data' => $peminjaman,
+            'start' => 0
+        );
+
+        $this->template->addJS(base_url('assets/js/peminjaman.js'));
+        $this->template->show("transaksi", "formulir_list", $data);
+    }
+    public function verifikasi(){
+
+        $peminjaman = $this->Peminjaman_model->get_all();
+
+        $data = array(
+            'peminjaman_data' => $peminjaman,
+            'start' => 0
+        );
+
+        $this->template->addJS(base_url('assets/js/peminjaman.js'));
+        $this->template->show("transaksi", "formulir_verifikasi", $data);
+    }
+
     public function _rules()
     {
 

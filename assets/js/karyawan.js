@@ -4,46 +4,50 @@ $(document).ready(function () {
         $('#lama_kontrak').prop("readonly", true);
         $('#lama_kontrak').val(0);
     }
-    $('#datatable').dataTable({
-        "bPaginate": true,
-        "bLengthChange": true,
-        "bFilter": true,
-        "bSort": true,
-        "bInfo": true,
-        "bAutoWidth": false,
-        "aaSorting": [[0,'asc']],
-        "lengthMenu": [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000, "Semua"]]
+
+    $('#status').on('change', function(){
+        if ($('#status').val() === 'tetap'){
+            $('#lama_kontrak').prop("readonly", true);
+            $('#lama_kontrak').val('0');
+        }else {
+            $('#lama_kontrak').prop("readonly", false);
+        }
     });
+});
+
+$('#datatable').dataTable({
+    "bPaginate": true,
+    "bLengthChange": true,
+    "bFilter": true,
+    "bSort": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    "aaSorting": [[0,'asc']],
+    "lengthMenu": [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000, "Semua"]]
 });
 
 if ($('#btn').val() === 'Update') {
     var status = $('#temp_status').val();
+    var divisi = $('#temp_divisi').val();
     if (status === 'tetap') {
         $('#status').val('tetap');
-        $('#lama_kontrak').prop("disabled", true);
+        $('#lama_kontrak').prop("readonly", true);
     } else {
         $('#status').val('kontrak');
-        $('#lama_kontrak').prop("disabled", false);
+        $('#lama_kontrak').prop("readonly", false);
+    }
+    if (divisi === 'head') {
+        $('#divisi').val('head');
+    } else {
+        $('#divisi').val('officer');
     }
 }
 
-$('#status').on('change', function(){
-    if ($('#status').val() === 'tetap'){
-        $('#lama_kontrak').prop("disabled", true);
-        $('#lama_kontrak').val('0');
-    }else {
-        $('#lama_kontrak').prop("disabled", false);
-    }
-});
 
 $('#tahun_masuk').datepicker({
     minViewMode: 2,
     format: 'yyyy'
 });
-
 $("#tanggal_lahir").datepicker({
     format: 'yyyy-mm-dd'
-});
-$("#tanggal_lahir").on("change", function () {
-    var fromdate = $(this).val();
 });

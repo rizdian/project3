@@ -17,9 +17,12 @@ class Index extends CI_Controller
     {
         $this->load->model(['Karyawan_model','Kendaraan_model','Peminjaman_model']);
 
+
         $data = [
-            't_peminjaman' => $this->Peminjaman_model->get_status_0(),
-            't_kendaraan'  => $this->Kendaraan_model->get_count_available()
+            't_persetujuan' => $this->Peminjaman_model->get_status_0(),
+            't_peminjaman' => $this->Peminjaman_model->total_rows(),
+            't_kendaraan'  => $this->Kendaraan_model->get_count_available(),
+            't_kry' => $this->Karyawan_model->total_rows()
         ];
 
         $this->template->show("", "halo", $data);

@@ -7,25 +7,26 @@
             <li>
                 <a href="<?php echo base_url(); ?>">
                     <i class="fa fa-home"></i> <span>Dashboard</span>
-            </span>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo base_url(); ?>peminjaman">
+                    <i class="fa fa-check-square"></i> <span>Peminjaman</span>
                 </a>
             </li>
             <li>
                 <a href="<?php echo base_url(); ?>karyawan">
                     <i class="fa fa-users"></i> <span>Karyawan</span>
-                    </span>
                 </a>
             </li>
             <li>
                 <a href="<?php echo base_url(); ?>kendaraan">
                     <i class="fa fa-car"></i> <span>Kendaraan</span>
-                    </span>
                 </a>
             </li>
             <li>
                 <a href="<?php echo base_url(); ?>auth">
                     <i class="fa fa-user"></i> <span>User</span>
-                    </span>
                 </a>
             </li>
         </ul>

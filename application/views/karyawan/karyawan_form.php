@@ -60,7 +60,7 @@
                             <div class="form-group">
                                 <label for="date">Tanggal Lahir <?php echo form_error('tanggal_lahir') ?></label>
                                 <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir"
-                                       placeholder="Tanggal Lahir" value="<?php echo $page_var['tanggal_lahir']; ?>"/>
+                                       placeholder="Tanggal Lahir" value="<?php echo $page_var['tanggal_lahir']; ?>" readonly/>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <label for="year">Tahun Masuk <?php echo form_error('tahun_masuk') ?></label>
                                 <input type="text" class="form-control" name="tahun_masuk" id="tahun_masuk"
-                                       placeholder="Tahun Masuk" value="<?php echo $page_var['tahun_masuk']; ?>"/>
+                                       placeholder="Tahun Masuk" value="<?php echo $page_var['tahun_masuk']; ?>" readonly/>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -90,7 +90,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-
                                 <label for="int">Lama Kontrak <?php echo form_error('lama_kontrak') ?></label>
                                 <input type="text" class="form-control" name="lama_kontrak" id="lama_kontrak"
                                        placeholder="Lama Kontrak" value="<?php echo $page_var['lama_kontrak']; ?>"/>
@@ -99,8 +98,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="varchar">Divisi <?php echo form_error('divisi') ?></label>
-                                <input type="text" class="form-control" name="divisi" id="divisi" placeholder="Divisi"
-                                       value="<?php echo $page_var['divisi']; ?>"/>
+                                <select class="form-control" id="divisi" name="divisi">
+                                    <option value="head">Head</option>
+                                    <option value="officer">Officer</option>
+                                </select>
+                                <input type="hidden" id="temp_divisi" value="<?php echo $page_var['divisi']; ?>"/>
                             </div>
                         </div>
                     </div>

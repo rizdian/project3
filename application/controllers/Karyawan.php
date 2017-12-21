@@ -43,9 +43,7 @@ class Karyawan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->template->addCSS(base_url('assets/plugins/datatables/dataTables.bootstrap.css'));
-        $this->template->addJS(base_url('assets/plugins/datatables/jquery.dataTables.min.js'));
-        $this->template->addJS(base_url('assets/plugins/datatables/dataTables.bootstrap.min.js'));
+
         $this->template->addJS(base_url('assets/js/karyawan.js'));
         $this->template->show("karyawan", "karyawan_list", $data);
         //$this->load->view('karyawan/karyawan_list', $data);
@@ -164,7 +162,7 @@ class Karyawan extends CI_Controller
 
     public function update_action()
     {
-        $this->_rules();
+        $this->_rules(true);
 
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
@@ -204,10 +202,15 @@ class Karyawan extends CI_Controller
         }
     }
 
-    public function _rules()
+    public function _rules($update = false)
     {
-        $this->form_validation->set_rules('nip', 'nip', 'trim|required|is_unique[karyawan.nip]');
-        $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required|is_unique[karyawan.no_ktp]');
+        if ($update){
+            $this->form_validation->set_rules('nip', 'nip', 'trim|required');
+            $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required');
+        }else{
+            $this->form_validation->set_rules('nip', 'nip', 'trim|required|is_unique[karyawan.nip]');
+            $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required|is_unique[karyawan.no_ktp]');
+        }
         $this->form_validation->set_rules('nama_depan', 'nama depan', 'trim|required');
         $this->form_validation->set_rules('nama_tengah', 'nama tengah', 'trim');
         $this->form_validation->set_rules('nama_belakang', 'nama belakang', 'trim');

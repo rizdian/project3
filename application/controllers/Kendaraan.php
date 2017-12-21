@@ -44,9 +44,6 @@ class Kendaraan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->template->addCSS(base_url('assets/plugins/datatables/dataTables.bootstrap.css'));
-        $this->template->addJS(base_url('assets/plugins/datatables/jquery.dataTables.min.js'));
-        $this->template->addJS(base_url('assets/plugins/datatables/dataTables.bootstrap.min.js'));
         $this->template->addJS(base_url('assets/js/kendaraan.js'));
         $this->template->show("kendaraan", "kendaraan_list", $data);
     }

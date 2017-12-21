@@ -42,14 +42,14 @@
                             foreach ($page_var['kendaraan_data'] as $kendaraan) {
                                 ?>
                                 <tr>
-                                    <td width="80px"><?php echo ++$page_var['start'] ?></td>
+                                    <td style="text-align:center"><?php echo ++$page_var['start'] ?></td>
                                     <td><?php echo $kendaraan->no_polisi ?></td>
                                     <td><?php echo $kendaraan->nama ?></td>
                                     <td><?php echo $kendaraan->warna ?></td>
-                                    <td><img src="assets/images/<?php echo $kendaraan->foto ?>" class="img-thumbnail"
-                                             style="width:40%"></td>
+                                    <td width="300px"><img src="assets/images/<?php echo $kendaraan->foto ?>" class="img-thumbnail"
+                                             style="width:50%;"></td>
                                     <td><?php if ($kendaraan->status == 0) echo 'Available'; else echo 'Not-Available'; ?></td>
-                                    <td style="text-align:center" width="200px">
+                                    <td style="text-align:center">
                                         <?php
                                         echo anchor(site_url('kendaraan/read/' . $kendaraan->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';
                                         echo anchor(site_url('kendaraan/update/' . $kendaraan->id) ,'<i class="glyphicon glyphicon-pencil"></i>','title="Edit", class="btn btn-xs btn-warning"'); echo ' ';

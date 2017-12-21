@@ -11,7 +11,7 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3><?php echo $page_var['t_peminjaman']; ?></h3>
+                        <h3><?php echo $page_var['t_persetujuan']; ?></h3>
 
                         <p>Butuh Persetujuan</p>
                     </div>
@@ -41,9 +41,9 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h3><?php echo $page_var['t_kry']; ?></h3>
 
-                        <p>User Registrations</p>
+                        <p>Jumlah Karyawan</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -56,14 +56,14 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3><?php echo $page_var['t_peminjaman']; ?></h3>
 
-                        <p>Unique Visitors</p>
+                        <p>Total Peminjaman</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="<?php echo site_url('peminjaman/data') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
