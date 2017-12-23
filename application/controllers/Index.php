@@ -19,7 +19,7 @@ class Index extends CI_Controller
 
 
         $data = [
-            't_persetujuan' => $this->Peminjaman_model->get_status_0(),
+            't_persetujuan' => $this->Peminjaman_model->get_jumlah_status(0),
             't_peminjaman' => $this->Peminjaman_model->total_rows(),
             't_kendaraan'  => $this->Kendaraan_model->get_count_available(),
             't_kry' => $this->Karyawan_model->total_rows()

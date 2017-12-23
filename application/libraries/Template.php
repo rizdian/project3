@@ -55,12 +55,18 @@ class Template
             $getUser = $this->CI->Karyawan_model->get_by_id($isLogin);
 
             if(isset($getUser)){
-                $this->data['page_header'] = $getUser;
+
+                $arrayUser = (array)$getUser ;
+                $arrayUser['uri'] = site_url('auth/logout');
+                $this->data['page_header'] = (object)$arrayUser;
             }else{
                 $this->data['page_header'] = (object) array('nama_depan' => 'Super',
                                                             'nama_belakang' => 'Admin',
-                                                            'nip' => '000000000');
+                                                            'nip' => '000000000',
+                                                            'uri' => site_url('auth/logout')
+                                            );
             }
+
             $this->data['page_var'] = $data;
             $this->load_JS_and_css();
             $this->init_menu();

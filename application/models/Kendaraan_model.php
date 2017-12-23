@@ -93,6 +93,10 @@ class Kendaraan_model extends CI_Model
         return $hasil;
     }
 
+    function get_update_status($id){
+        return $this->db->query("UPDATE kendaraan SET status = '0' WHERE id = ".$id."");
+    }
+
 }
 
 /* End of file Kendaraan_model.php */

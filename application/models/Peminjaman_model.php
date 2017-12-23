@@ -56,15 +56,17 @@ class Peminjaman_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-    function get_status_0(){
+    function get_jumlah_status($id)
+    {
         $query = $this->db->query("SELECT *
                                      FROM peminjaman
-                                    WHERE status_pinjam = '0'");
+                                    WHERE status_pinjam = '".$id."'");
         $hasil = $query->num_rows();
         return $hasil;
     }
 
-    function get_status_list_0(){
+    function get_status_list($id)
+    {
         $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS penyetuju
                                           FROM peminjaman p
                                     INNER JOIN kendaraan ke
@@ -73,14 +75,17 @@ class Peminjaman_model extends CI_Model
                                             ON p.id_peminjam = ka.id
                                     LEFT JOIN karyawan ku
                                             ON p.id_penyetuju = ku.id
-                                          WHERE status_pinjam = '0'");
+                                          WHERE status_pinjam = '".$id."'");
         return $query->result();
     }
 
-    function get_acc($id){
-        $this->db->query("UPDATE peminjaman SET status_pinjam = '1' WHERE id = ".$id."");
+    function get_acc($idPeminjam, $idPenytuju)
+    {
+        return $this->db->query("UPDATE peminjaman SET status_pinjam = '1',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
     }
-    function get_tolak($id){
-        $this->db->query("UPDATE peminjaman SET status_pinjam = '2' WHERE id = ".$id."");
+
+    function get_tolak($idPeminjam, $idPenytuju)
+    {
+        return $this->db->query("UPDATE peminjaman SET status_pinjam = '2',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
     }
 }

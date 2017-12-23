@@ -6,7 +6,7 @@
  * Date: 14/12/2017
  * Time: 11:07
  */
-class peminjaman extends CI_Controller
+class Peminjaman extends CI_Controller
 {
     public function __construct()
     {
@@ -76,11 +76,10 @@ class peminjaman extends CI_Controller
 
     public function verifikasi()
     {
-        if (!$this->ion_auth->is_admin())
-        {
+        if (!$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         }
-        $peminjaman = $this->Peminjaman_model->get_status_list_0();
+        $peminjaman = $this->Peminjaman_model->get_status_list(0);
 
         $data = array(
             'peminjaman_data' => $peminjaman,
@@ -93,8 +92,11 @@ class peminjaman extends CI_Controller
 
     public function verifikasiAcc($id)
     {
-        $peminjaman = $this->Peminjaman_model->get_acc($id);
+        $user = $this->_getKryByLogin();
+        $mobil = $this->_getIdMobil($id);
+        $peminjaman = $this->Peminjaman_model->get_acc($id, $user);
         if ($peminjaman) {
+            $this->Kendaraan_model->get_update_status($mobil);
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Acc');
             redirect(site_url('peminjaman/verifikasi'));
         } else {
@@ -102,16 +104,24 @@ class peminjaman extends CI_Controller
             redirect(site_url('peminjaman/verifikasi'));
         }
     }
+
     public function verifikasiTolak($id)
     {
-        $peminjaman = $this->Peminjaman_model->get_tolak($id);
+        $user = $this->_getKryByLogin();
+        $mobil = $this->_getIdMobil($id);
+        $peminjaman = $this->Peminjaman_model->get_tolak($id, $user);
         if ($peminjaman) {
+            $this->Kendaraan_model->get_update_status($mobil);
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Tolak');
             redirect(site_url('peminjaman/verifikasi'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('peminjaman/verifikasi'));
         }
+    }
+
+    public function pengembalian(){
+
     }
 
     public function _rules()
@@ -125,6 +135,23 @@ class peminjaman extends CI_Controller
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    public function _getKryByLogin()
+    {
+        $isLogin = $this->ion_auth->user()->row()->id_karyawan;
+        $getUser = $this->Karyawan_model->get_by_id($isLogin);
+        if ($getUser) return $getUser->id;
+        else return null;
+    }
+
+    public function _getIdMobil($id)
+    {
+        $data = $this->Peminjaman_model->get_by_id($id);
+        if ($data) {
+            return $data->id_kendaraan;
+        }
+        return null;
     }
 
 }

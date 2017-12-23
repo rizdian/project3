@@ -43,8 +43,8 @@
                                     <td style="text-align: center"><?php echo ++$page_var['start'] ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->tgl_pinjam ?> - <?php echo $peminjaman->tgl_kembali ?></td>
                                     <td><?php echo $peminjaman->keterangan ?></td>
-                                    <td style="text-align: center"><?php echo $peminjaman->status_pinjam ?></td>
-                                    <td style="text-align: center"><?php echo $peminjaman->status_kembali ?></td>
+                                    <td style="text-align: center"><?php if($peminjaman->status_pinjam == '0') echo "-"; elseif($peminjaman->status_pinjam == '1') echo "Di Setujui"; else echo "Di Tolak"?></td>
+                                    <td style="text-align: center"><?php if($peminjaman->status_kembali == '0') echo "-"; else echo 'Di Kembalikan'; ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->no_polisi ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->nama ?></td>
                                     <td><?php echo $peminjaman->nama_depan ?> - <?php echo $peminjaman->nama_belakang ?></td>
