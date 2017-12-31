@@ -52,8 +52,10 @@ class Karyawan_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
+        $this->db->select('karyawan.*,divisi.nama');
+        $this->db->join('divisi', 'karyawan.divisi = divisi.id');
+        $this->db->order_by('karyawan.'.$this->id, $this->order);
+        $this->db->like('karyawan.id', $q);
         $this->db->or_like('nip', $q);
         $this->db->or_like('no_ktp', $q);
         $this->db->or_like('nama_depan', $q);

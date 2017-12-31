@@ -1,79 +1,60 @@
-<!doctype html>
-<html>
-    <head>
-        <title>harviacode.com - codeigniter crud generator</title>
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>"/>
-        <style>
-            body{
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="margin-top:0px">Divisi List</h2>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4">
-                <?php echo anchor(site_url('divisi/create'),'Create', 'class="btn btn-primary"'); ?>
-            </div>
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+<section class="content-header">
+    <h1>
+        Divisi
+        <small>List</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-4">
+                        <?php echo anchor(site_url('divisi/create'), 'Create', 'class="btn btn-primary"'); ?>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div style="margin-top: 8px" id="message">
+                            <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-right">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('divisi/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('divisi'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form">
+                    <div class="box-body">
+                        <table id="datatable" class="table table-striped" style="margin-bottom: 10px">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center">No.</th>
+                                <th style="text-align: center">Nama</th>
+                                <th style="text-align: center">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($page_var['divisi_data'] as $divisi) { ?>
+                                <tr>
+                                    <td style="text-align: center"><?php echo ++$page_var['start'] ?></td>
+                                    <td style="text-align:center"><?php echo $divisi->nama ?></td>
+                                    <td style="text-align:center">
+                                        <?php
+                                        echo anchor(site_url('divisi/read/' . $divisi->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';
+                                        echo anchor(site_url('divisi/update/' . $divisi->id) ,'<i class="glyphicon glyphicon-pencil"></i>','title="Edit", class="btn btn-xs btn-warning"'); echo ' ';
+                                        echo anchor(site_url('divisi/delete/' . $divisi->id),'<i class="glyphicon glyphicon-trash"></i>','title="Hapus", class="btn btn-xs btn-danger", onclick="javasciprt: return confirm(\'Apakah Anda yakin ?\')"');
+                                        ?>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
                             ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>
         </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Nama</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($divisi_data as $divisi)
-            {
-                ?>
-                <tr>
-			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $divisi->nama ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('divisi/read/'.$divisi->id),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('divisi/update/'.$divisi->id),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('divisi/delete/'.$divisi->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
-        </table>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
-    </body>
-</html>
+    </div>
+</section>
+
+

@@ -26,7 +26,7 @@
                                     <?php
                                     foreach ($page_var['karyawan'] as $each => $value) { ?>
                                         <option
-                                                value="<?php echo $value->id; ?>"><?php echo $value->nama_depan; ?></option>';
+                                                value="<?php echo $value->id; ?>"><?php echo $value->nama_depan; ?> - <?php echo $value->nama_belakang; ?></option>';
                                     <?php }
                                     ?>
                                 </select>

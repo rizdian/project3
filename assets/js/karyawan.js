@@ -1,15 +1,15 @@
 // A $( document ).ready() block.
 $(document).ready(function () {
-    if ($('#status').val() === 'tetap'){
+    if ($('#status').val() === 'tetap') {
         $('#lama_kontrak').prop("readonly", true);
         $('#lama_kontrak').val(0);
     }
 
-    $('#status').on('change', function(){
-        if ($('#status').val() === 'tetap'){
+    $('#status').on('change', function () {
+        if ($('#status').val() === 'tetap') {
             $('#lama_kontrak').prop("readonly", true);
             $('#lama_kontrak').val('0');
-        }else {
+        } else {
             $('#lama_kontrak').prop("readonly", false);
         }
     });
@@ -22,7 +22,7 @@ $('#datatable').dataTable({
     "bSort": true,
     "bInfo": true,
     "bAutoWidth": false,
-    "aaSorting": [[0,'asc']],
+    "aaSorting": [[0, 'asc']],
     "lengthMenu": [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000, "Semua"]]
 });
 
@@ -36,11 +36,9 @@ if ($('#btn').val() === 'Update') {
         $('#status').val('kontrak');
         $('#lama_kontrak').prop("readonly", false);
     }
-    if (divisi === 'head') {
-        $('#divisi').val('head');
-    } else {
-        $('#divisi').val('officer');
-    }
+
+    $('#divisi').val(divisi);
+
 }
 
 

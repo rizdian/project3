@@ -9,7 +9,10 @@ class Divisi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Divisi_model');
-        $this->load->library('form_validation');
+        $this->load->library(array('ion_auth', 'form_validation', 'Template'));
+        if (!$this->ion_auth->is_admin()) {
+            redirect('auth', 'refresh');
+        }
     }
 
     public function index()
@@ -40,7 +43,9 @@ class Divisi extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->load->view('divisi/divisi_list', $data);
+//        $this->load->view('divisi/divisi_list', $data);
+        $this->template->addJS(base_url('assets/js/divisi.js'));
+        $this->template->show("divisi", "divisi_list", $data);
     }
 
     public function read($id) 
@@ -51,7 +56,8 @@ class Divisi extends CI_Controller
 		'id' => $row->id,
 		'nama' => $row->nama,
 	    );
-            $this->load->view('divisi/divisi_read', $data);
+            $this->template->show("divisi", "divisi_read", $data);
+//            $this->load->view('divisi/divisi_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('divisi'));
@@ -66,7 +72,8 @@ class Divisi extends CI_Controller
 	    'id' => set_value('id'),
 	    'nama' => set_value('nama'),
 	);
-        $this->load->view('divisi/divisi_form', $data);
+        $this->template->show("divisi", "divisi_form", $data);
+//        $this->load->view('divisi/divisi_form', $data);
     }
     
     public function create_action() 
@@ -97,7 +104,8 @@ class Divisi extends CI_Controller
 		'id' => set_value('id', $row->id),
 		'nama' => set_value('nama', $row->nama),
 	    );
-            $this->load->view('divisi/divisi_form', $data);
+            $this->template->show("divisi", "divisi_form", $data);
+//            $this->load->view('divisi/divisi_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('divisi'));

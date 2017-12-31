@@ -25,6 +25,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo base_url(); ?>divisi">
+                    <i class="fa fa-sitemap"></i> <span>Divisi</span>
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo base_url(); ?>auth">
                     <i class="fa fa-user"></i> <span>User</span>
                 </a>

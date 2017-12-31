@@ -50,7 +50,7 @@
                                     <td><?php echo $karyawan->tempat_lahir ?></td>
                                     <td><?php echo $karyawan->tanggal_lahir ?></td>
                                     <td><?php echo $karyawan->tahun_masuk ?></td>
-                                    <td><?php echo $karyawan->divisi ?></td>
+                                    <td><?php echo $karyawan->nama ?></td>
                                     <td style="text-align:center">
                                         <?php
                                         echo anchor(site_url('karyawan/read/' . $karyawan->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';

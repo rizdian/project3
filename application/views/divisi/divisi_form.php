@@ -1,24 +1,40 @@
-<!doctype html>
-<html>
-    <head>
-        <title>harviacode.com - codeigniter crud generator</title>
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>"/>
-        <style>
-            body{
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="margin-top:0px">Divisi <?php echo $button ?></h2>
-        <form action="<?php echo $action; ?>" method="post">
-	    <div class="form-group">
-            <label for="varchar">Nama <?php echo form_error('nama') ?></label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+<section class="content-header">
+    <h1>
+        Divisi
+        <small>Create</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="<?php echo $page_var['action']; ?>" method="post">
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="int">Nama <?php echo form_error('nama') ?></label>
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama"
+                                       value="<?php echo $page_var['nama']; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="<?php echo $page_var['id']; ?>"/>
+                                <button type="submit" id='btn' value="<?php echo $page_var['button'] ?>"
+                                        class="btn btn-primary"><?php echo $page_var['button'] ?></button>
+                                <a href="<?php echo site_url('divisi') ?>" class="btn btn-default">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
-	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
-	    <a href="<?php echo site_url('divisi') ?>" class="btn btn-default">Cancel</a>
-	</form>
-    </body>
-</html>
+    </div>
+</section>

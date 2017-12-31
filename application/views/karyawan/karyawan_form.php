@@ -97,12 +97,15 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="varchar">Divisi <?php echo form_error('divisi') ?></label>
-                                <select class="form-control" id="divisi" name="divisi">
-                                    <option value="head">Head</option>
-                                    <option value="officer">Officer</option>
+                                <label for="varchar">Divisi</label>
+                                <select class="form-control" name="divisi" id="divisi">
+                                    <?php
+                                    foreach ($page_var['divisi'] as $each => $value) { ?>
+                                        <option value="<?php echo $value->id; ?>"><?php echo $value->nama; ?></option>';
+                                    <?php }
+                                    ?>
                                 </select>
-                                <input type="hidden" id="temp_divisi" value="<?php echo $page_var['divisi']; ?>"/>
+                                <input type="hidden" id="temp_divisi" value="<?php echo $page_var['this_divisi']; ?>"/>
                             </div>
                         </div>
                     </div>

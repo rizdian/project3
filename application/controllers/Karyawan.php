@@ -8,7 +8,7 @@ class Karyawan extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Karyawan_model');
+        $this->load->model(['Karyawan_model','Divisi_model']);
         $this->load->library(array('ion_auth', 'form_validation', 'Template'));
         if (!$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
@@ -35,7 +35,6 @@ class Karyawan extends CI_Controller
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
-
         $data = array(
             'karyawan_data' => $karyawan,
             'q' => $q,
@@ -79,6 +78,7 @@ class Karyawan extends CI_Controller
 
     public function create()
     {
+        $divisi = $this->Divisi_model->get_all();
         $data = array(
             'button' => 'Create',
             'action' => site_url('karyawan/create_action'),
@@ -94,7 +94,8 @@ class Karyawan extends CI_Controller
             'tahun_masuk' => set_value('tahun_masuk'),
             'status' => set_value('status'),
             'lama_kontrak' => set_value('lama_kontrak'),
-            'divisi' => set_value('divisi'),
+            'divisi' => $divisi,
+            'this_divisi'=> null
         );
         $this->template->addJS(base_url('assets/js/karyawan.js'));
         $this->template->show("karyawan", "karyawan_form", $data);
@@ -134,6 +135,7 @@ class Karyawan extends CI_Controller
         $row = $this->Karyawan_model->get_by_id($id);
 
         if ($row) {
+            $listdivisi = $this->Divisi_model->get_all();
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('karyawan/update_action'),
@@ -149,7 +151,8 @@ class Karyawan extends CI_Controller
                 'tahun_masuk' => set_value('tahun_masuk', $row->tahun_masuk),
                 'status' => set_value('status', $row->status),
                 'lama_kontrak' => set_value('lama_kontrak', $row->lama_kontrak),
-                'divisi' => set_value('divisi', $row->divisi),
+                'divisi' => $listdivisi,
+                'this_divisi' => set_value('this_divisi', $row->divisi)
             );
             $this->template->addJS(base_url('assets/js/karyawan.js'));
             $this->template->show("karyawan", "karyawan_form", $data);
