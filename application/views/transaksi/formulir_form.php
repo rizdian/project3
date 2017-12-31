@@ -9,6 +9,9 @@
         <div class="row">
             <div class="box box-primary">
                 <div class="box-header with-border">
+                    <div style="margin-top: 8px" id="message">
+                        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -68,6 +71,7 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-md-12">
+                                <input type="hidden" name="flag" value="<?php echo $page_header->flag; ?>"/>
                                 <button type="submit" id='btn' value="create"
                                         class="btn btn-primary"><?php echo $page_var['button'] ?></button>
                             </div>

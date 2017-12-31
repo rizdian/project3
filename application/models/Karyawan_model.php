@@ -7,7 +7,7 @@ class Karyawan_model extends CI_Model
 {
 
     public $table = 'karyawan';
-    public $id = 'id';
+    public $id = 'karyawan.id';
     public $order = 'DESC';
 
     function __construct()
@@ -25,6 +25,8 @@ class Karyawan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
+        $this->db->select('karyawan.*,divisi.nama,divisi.flag');
+        $this->db->join('divisi', 'karyawan.divisi = divisi.id');
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
@@ -54,7 +56,7 @@ class Karyawan_model extends CI_Model
     {
         $this->db->select('karyawan.*,divisi.nama');
         $this->db->join('divisi', 'karyawan.divisi = divisi.id');
-        $this->db->order_by('karyawan.'.$this->id, $this->order);
+        $this->db->order_by($this->id, $this->order);
         $this->db->like('karyawan.id', $q);
         $this->db->or_like('nip', $q);
         $this->db->or_like('no_ktp', $q);
@@ -104,15 +106,7 @@ class Karyawan_model extends CI_Model
 
     function get_not_in_formulir()
     {
-        $query = $this->db->query("SELECT 		karyawan.* 
-                                    FROM 			karyawan
-                                    LEFT JOIN 	peminjaman
-                                    ON 			karyawan.id = peminjaman.id_peminjam
-                                    WHERE 		peminjaman.id_peminjam IS NULL 
-                                    OR 			peminjaman.status_kembali = '1' 
-                                    AND 			karyawan.id NOT IN (SELECT 	DISTINCT id_peminjam 
-                                                                        FROM 		peminjaman 
-                                                                        WHERE 	status_kembali = '0') ");
+        $query = $this->db->query("SELECT * FROM karyawan WHERE karyawan.id IN (SELECT * FROM kry_available)");
         return $query->result();
     }
 

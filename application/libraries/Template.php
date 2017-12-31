@@ -55,7 +55,6 @@ class Template
             $getUser = $this->CI->Karyawan_model->get_by_id($isLogin);
 
             if(isset($getUser)){
-
                 $arrayUser = (array)$getUser ;
                 $arrayUser['uri'] = site_url('auth/logout');
                 $this->data['page_header'] = (object)$arrayUser;
@@ -66,6 +65,8 @@ class Template
                                                             'uri' => site_url('auth/logout')
                                             );
             }
+
+
 
             $this->data['page_var'] = $data;
             $this->load_JS_and_css();

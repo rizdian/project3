@@ -16,10 +16,11 @@ class Index extends CI_Controller
     public function index()
     {
         $this->load->model(['Karyawan_model','Kendaraan_model','Peminjaman_model']);
-
+        $isLogin = $this->ion_auth->user()->row()->id_karyawan;
+        $getUser = $this->Karyawan_model->get_by_id($isLogin);
 
         $data = [
-            't_persetujuan' => $this->Peminjaman_model->get_jumlah_status(0),
+            't_persetujuan' => $this->Peminjaman_model->get_jumlah_status($getUser->flag),
             't_peminjaman' => $this->Peminjaman_model->total_rows(),
             't_kendaraan'  => $this->Kendaraan_model->get_count_available(),
             't_kry' => $this->Karyawan_model->total_rows()

@@ -18,7 +18,7 @@ class Peminjaman_model extends CI_Model
     // get all
     function get_all()
     {
-        $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS penyetuju
+        $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS d_penyetuju, ku.nama_belakang AS b_penyetuju
                                           FROM peminjaman p
                                     INNER JOIN kendaraan ke
                                             ON p.id_kendaraan = ke.id
@@ -60,12 +60,12 @@ class Peminjaman_model extends CI_Model
     {
         $query = $this->db->query("SELECT *
                                      FROM peminjaman
-                                    WHERE status_pinjam = '".$id."'");
+                                    WHERE flag = '".$id."'");
         $hasil = $query->num_rows();
         return $hasil;
     }
 
-    function get_status_list($id)
+    function get_status_list($flag)
     {
         $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS penyetuju
                                           FROM peminjaman p
@@ -75,17 +75,19 @@ class Peminjaman_model extends CI_Model
                                             ON p.id_peminjam = ka.id
                                     LEFT JOIN karyawan ku
                                             ON p.id_penyetuju = ku.id
-                                          WHERE status_pinjam = '".$id."'");
+                                          WHERE flag = $flag");
         return $query->result();
     }
 
     function get_acc($idPeminjam, $idPenytuju)
     {
-        return $this->db->query("UPDATE peminjaman SET status_pinjam = '1',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
+        return $this->db->query(" UPDATE  peminjaman 
+                                  SET     flag = flag+1, id_penyetuju = " . $idPenytuju . " 
+                                  WHERE   id = " . $idPeminjam . "");
     }
 
     function get_tolak($idPeminjam, $idPenytuju)
     {
-        return $this->db->query("UPDATE peminjaman SET status_pinjam = '2',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
+        return $this->db->query("UPDATE peminjaman SET flag = 0,status_kembali = '1',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
     }
 }

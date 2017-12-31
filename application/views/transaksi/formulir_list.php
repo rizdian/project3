@@ -43,12 +43,12 @@
                                     <td style="text-align: center"><?php echo ++$page_var['start'] ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->tgl_pinjam ?> - <?php echo $peminjaman->tgl_kembali ?></td>
                                     <td><?php echo $peminjaman->keterangan ?></td>
-                                    <td style="text-align: center"><?php if($peminjaman->status_pinjam == '0') echo "-"; elseif($peminjaman->status_pinjam == '1') echo "Di Setujui"; else echo "Di Tolak"?></td>
+                                    <td style="text-align: center"><?php if($peminjaman->flag == '0') echo "Di Tolak"; elseif($peminjaman->flag < 5) echo "Di Proses"; else echo "Di Setujui"?></td>
                                     <td style="text-align: center"><?php if($peminjaman->status_kembali == '0') echo "-"; else echo 'Di Kembalikan'; ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->no_polisi ?></td>
                                     <td style="text-align: center"><?php echo $peminjaman->nama ?></td>
                                     <td><?php echo $peminjaman->nama_depan ?> - <?php echo $peminjaman->nama_belakang ?></td>
-                                    <td style="text-align: center"><?php if(isset($peminjaman->penyetuju)) echo $peminjaman->penyetuju; else echo "-"; ?></td>
+                                    <td style="text-align: center"><?php if(isset($peminjaman->d_penyetuju)) { echo $peminjaman->d_penyetuju ;echo "-"; echo $peminjaman->b_penyetuju; }else echo "-"; ?></td>
                                 </tr>
                                 <?php
                             }

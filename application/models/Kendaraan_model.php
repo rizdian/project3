@@ -78,10 +78,8 @@ class Kendaraan_model extends CI_Model
 
     function get_available()
     {
-        $query = $this->db->query(" SELECT	* 
-                                    FROM    kendaraan
-                                    WHERE	status = '0'");
-        return $query->result();
+        $this->db->where('status','0');
+        return $this->db->get($this->table)->result();
     }
 
     function get_count_available()

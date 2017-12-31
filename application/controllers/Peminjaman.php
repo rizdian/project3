@@ -13,6 +13,9 @@ class Peminjaman extends CI_Controller
         parent::__construct();
         $this->load->library(array('ion_auth', 'form_validation', 'Template'));
         $this->load->model(['Peminjaman_model', 'Kendaraan_model']);
+        if (!$this->ion_auth->is_admin()) {
+            redirect('auth', 'refresh');
+        }
     }
 
     public function index()
@@ -43,12 +46,14 @@ class Peminjaman extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            $karyawan = $this->Karyawan_model->get_by_id($this->input->post('karyawan', TRUE));
             $data = array(
                 'tgl_pinjam' => $this->input->post('tgl_pinjam', TRUE),
                 'tgl_kembali' => $this->input->post('tgl_kembali', TRUE),
                 'keterangan' => $this->input->post('keterangan', TRUE),
                 'id_kendaraan' => $this->input->post('kendaraan', TRUE),
                 'id_peminjam' => $this->input->post('karyawan', TRUE),
+                'flag' => $karyawan->flag+1,
             );
 
             $this->Peminjaman_model->insert($data);
@@ -76,10 +81,8 @@ class Peminjaman extends CI_Controller
 
     public function verifikasi()
     {
-        if (!$this->ion_auth->is_admin()) {
-            redirect('auth', 'refresh');
-        }
-        $peminjaman = $this->Peminjaman_model->get_status_list(0);
+        $user = $this->_getKryByLogin();
+        $peminjaman = $this->Peminjaman_model->get_status_list($user->flag);
 
         $data = array(
             'peminjaman_data' => $peminjaman,
@@ -94,7 +97,7 @@ class Peminjaman extends CI_Controller
     {
         $user = $this->_getKryByLogin();
         $mobil = $this->_getIdMobil($id);
-        $peminjaman = $this->Peminjaman_model->get_acc($id, $user);
+        $peminjaman = $this->Peminjaman_model->get_acc($id, $user->id);
         if ($peminjaman) {
             $this->Kendaraan_model->get_update_status($mobil);
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Acc');
@@ -109,7 +112,7 @@ class Peminjaman extends CI_Controller
     {
         $user = $this->_getKryByLogin();
         $mobil = $this->_getIdMobil($id);
-        $peminjaman = $this->Peminjaman_model->get_tolak($id, $user);
+        $peminjaman = $this->Peminjaman_model->get_tolak($id, $user->id);
         if ($peminjaman) {
             $this->Kendaraan_model->get_update_status($mobil);
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Tolak');
@@ -120,7 +123,8 @@ class Peminjaman extends CI_Controller
         }
     }
 
-    public function pengembalian(){
+    public function pengembalian()
+    {
 
     }
 
@@ -132,6 +136,7 @@ class Peminjaman extends CI_Controller
         $this->form_validation->set_rules('tgl_pinjam', 'tanggal pinjam', 'trim|required');
         $this->form_validation->set_rules('tgl_kembali', 'tanggal kembali', 'trim|required');
         $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+        $this->form_validation->set_rules('flag', 'flag', 'trim|required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -141,7 +146,7 @@ class Peminjaman extends CI_Controller
     {
         $isLogin = $this->ion_auth->user()->row()->id_karyawan;
         $getUser = $this->Karyawan_model->get_by_id($isLogin);
-        if ($getUser) return $getUser->id;
+        if ($getUser) return $getUser;
         else return null;
     }
 
