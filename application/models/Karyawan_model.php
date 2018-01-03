@@ -106,7 +106,11 @@ class Karyawan_model extends CI_Model
 
     function get_not_in_formulir()
     {
-        $query = $this->db->query("SELECT * FROM karyawan WHERE karyawan.id IN (SELECT * FROM kry_available)");
+        $query = $this->db->query("SELECT * FROM karyawan 
+                                    INNER JOIN divisi
+                                    ON karyawan.divisi = divisi.id
+                                    WHERE karyawan.id IN (SELECT * FROM kry_available) 
+                                    AND divisi.flag != 4 ");
         return $query->result();
     }
 

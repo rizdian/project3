@@ -5,7 +5,6 @@ if (!defined('BASEPATH'))
 
 class Peminjaman_model extends CI_Model
 {
-
     public $table = 'peminjaman';
     public $id = 'id';
     public $order = 'DESC';
@@ -47,6 +46,8 @@ class Peminjaman_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        $insert_id = $this->db->insert_id();
+        return  $insert_id;
     }
 
     // delete data

@@ -12,10 +12,10 @@ class Peminjaman extends CI_Controller
     {
         parent::__construct();
         $this->load->library(array('ion_auth', 'form_validation', 'Template'));
-        $this->load->model(['Peminjaman_model', 'Kendaraan_model']);
-        if (!$this->ion_auth->is_admin()) {
+        $this->load->model(['Peminjaman_model', 'Kendaraan_model', 'Detail_Peminjaman_model']);
+        /*if (!$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
-        }
+        }*/
     }
 
     public function index()
@@ -53,14 +53,23 @@ class Peminjaman extends CI_Controller
                 'keterangan' => $this->input->post('keterangan', TRUE),
                 'id_kendaraan' => $this->input->post('kendaraan', TRUE),
                 'id_peminjam' => $this->input->post('karyawan', TRUE),
-                'flag' => $karyawan->flag+1,
+                'flag' => $karyawan->flag + 1,
             );
 
-            $this->Peminjaman_model->insert($data);
-            $data = array(
+            $insertId = $this->Peminjaman_model->insert($data);
+            $intFlag = (integer)$karyawan->flag;
+            $dataDetail = array(
+                'id_peminjaman' => $insertId,
+            );
+            for ($i = $intFlag; $i < 4;) {
+                $dataDetail['flag'] = ++$i;
+                $this->save_detail($dataDetail);
+            }
+
+            $dataKendaraan = array(
                 'status' => '1'
             );
-            $this->Kendaraan_model->update($this->input->post('kendaraan', TRUE), $data);
+            $this->Kendaraan_model->update($this->input->post('kendaraan', TRUE), $dataKendaraan);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('peminjaman'));
         }
@@ -77,6 +86,21 @@ class Peminjaman extends CI_Controller
 
         $this->template->addJS(base_url('assets/js/peminjaman.js'));
         $this->template->show("transaksi", "formulir_list", $data);
+    }
+
+    public function dataDetail($id)
+    {
+        $dataDetail = $this->Detail_Peminjaman_model->get_by_id($id);
+        $data = array(
+            'detail_data' => $dataDetail,
+            'start' => 0
+        );
+        if ($data) {
+            $this->template->show("transaksi", "formulir_listdetail", $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('peminjaman/data'));
+        }
     }
 
     public function verifikasi()
@@ -96,10 +120,14 @@ class Peminjaman extends CI_Controller
     public function verifikasiAcc($id)
     {
         $user = $this->_getKryByLogin();
-        $mobil = $this->_getIdMobil($id);
+        $flag = $this->_getFromPeminjamanId($id);
         $peminjaman = $this->Peminjaman_model->get_acc($id, $user->id);
         if ($peminjaman) {
-            $this->Kendaraan_model->get_update_status($mobil);
+            $dataUpdateDetail = array(
+                'id_karyawan' => $user->id,
+                'status' => 1,
+            );
+            $this->Detail_Peminjaman_model->update($id,$flag->flag,$dataUpdateDetail);
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Acc');
             redirect(site_url('peminjaman/verifikasi'));
         } else {
@@ -111,21 +139,27 @@ class Peminjaman extends CI_Controller
     public function verifikasiTolak($id)
     {
         $user = $this->_getKryByLogin();
-        $mobil = $this->_getIdMobil($id);
+        $mobil = $this->_getFromPeminjamanId($id);
+
         $peminjaman = $this->Peminjaman_model->get_tolak($id, $user->id);
         if ($peminjaman) {
-            $this->Kendaraan_model->get_update_status($mobil);
+            $dataUpdateDetail = array(
+                'id_karyawan' => $user->id,
+                'status' => 2,
+            );
+            $this->Detail_Peminjaman_model->update($id,$mobil->flag,$dataUpdateDetail);
+
+            $dataKendaraan = array(
+                'status' => '0'
+            );
+            $this->Kendaraan_model->update($mobil->id_kendaraan, $dataKendaraan);
+
             $this->session->set_flashdata('message', 'Peminjaman Telah Di Tolak');
             redirect(site_url('peminjaman/verifikasi'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('peminjaman/verifikasi'));
         }
-    }
-
-    public function pengembalian()
-    {
-
     }
 
     public function _rules()
@@ -150,13 +184,18 @@ class Peminjaman extends CI_Controller
         else return null;
     }
 
-    public function _getIdMobil($id)
+    public function _getFromPeminjamanId($id)
     {
         $data = $this->Peminjaman_model->get_by_id($id);
         if ($data) {
-            return $data->id_kendaraan;
+            return $data;
         }
         return null;
+    }
+
+    public function save_detail($data)
+    {
+        $this->Detail_Peminjaman_model->insert($data);
     }
 
 }
