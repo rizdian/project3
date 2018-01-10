@@ -51,10 +51,12 @@
                                     <td style="text-align: center"><?php echo $peminjaman->nama ?></td>
                                     <td><?php echo $peminjaman->nama_depan ?> - <?php echo $peminjaman->nama_belakang ?></td>
                                     <td style="text-align: center"><?php if(isset($peminjaman->d_penyetuju)) { echo $peminjaman->d_penyetuju ;echo "-"; echo $peminjaman->b_penyetuju; }else echo "-"; ?></td>
-                                    <td style="text-align: center"><?php if(isset($peminjaman->flag)) { echo $peminjaman->flag ; }else echo "-"; ?></td>
+                                    <td style="text-align: center"><?php if(isset($peminjaman->flag)) { echo $peminjaman->d_penyetuju ."-". $peminjaman->b_penyetuju ; }else echo "-"; ?></td>
                                     <td style="text-align:center">
                                         <?php
                                         echo anchor(site_url('peminjaman/datadetail/' . $peminjaman->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';
+                                        if ($peminjaman->flag == 5)
+                                            echo anchor(site_url('peminjaman/cetak/' . $peminjaman->id), '<i class="glyphicon glyphicon-print"></i>','title="Print", class="btn btn-xs btn-default"'); echo ' ';
                                         ?>
                                     </td>
                                 </tr>

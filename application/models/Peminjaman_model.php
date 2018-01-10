@@ -91,4 +91,17 @@ class Peminjaman_model extends CI_Model
     {
         return $this->db->query("UPDATE peminjaman SET flag = 0,status_kembali = '1',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
     }
+
+    function get_by_id_detail($id){
+        $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS d_penyetuju, ku.nama_belakang AS b_penyetuju
+                                          FROM peminjaman p
+                                    INNER JOIN kendaraan ke
+                                            ON p.id_kendaraan = ke.id
+                                    INNER JOIN karyawan ka
+                                            ON p.id_peminjam = ka.id
+                                    LEFT JOIN karyawan ku
+                                            ON p.id_penyetuju = ku.id
+                                    WHERE p.id = $id");
+        return $query->row();
+    }
 }

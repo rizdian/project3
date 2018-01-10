@@ -198,4 +198,18 @@ class Peminjaman extends CI_Controller
         $this->Detail_Peminjaman_model->insert($data);
     }
 
+    public function cetak($id)
+    {
+        $master = $this->Peminjaman_model->get_by_id_detail($id);
+        $dataDetail = $this->Detail_Peminjaman_model->get_by_id($id);
+        $data = array(
+            'start' => 0,
+            'master' => $master,
+            'detail' => $dataDetail,
+        );
+        $this->template->addJS(base_url('assets/js/peminjaman.js'));
+        $this->template->show("transaksi", "formulir_cetak", $data);
+
+    }
+
 }

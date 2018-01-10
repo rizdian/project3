@@ -23,3 +23,7 @@ $('.input-daterange').datepicker({
     startDate: "+0d",
     autoclose: true
 });
+
+$("#cetak").click(function(){
+    window.print();
+});
