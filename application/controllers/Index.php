@@ -12,6 +12,9 @@ class Index extends CI_Controller
     {
         parent::__construct();
         $this->load->library(array('ion_auth', 'form_validation','Template'));
+        if ($this->ion_auth->in_group('superadmin')) {
+            redirect('auth', 'refresh');
+        }
     }
     public function index()
     {

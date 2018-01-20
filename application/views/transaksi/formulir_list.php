@@ -32,8 +32,7 @@
                                 <th style="text-align: center">No Polisi</th>
                                 <th style="text-align: center">Nama Kendaraan</th>
                                 <th style="text-align: center">Peminjam</th>
-                                <th style="text-align: center">Penyetuju</th>
-                                <th style="text-align: center">Divisi Penyetuju</th>
+                                <th style="text-align: center">Penyetuju Terakhir</th>
                                 <th style="text-align: center">Aksi</th>
                             </tr>
                             </thead>
@@ -51,7 +50,6 @@
                                     <td style="text-align: center"><?php echo $peminjaman->nama ?></td>
                                     <td><?php echo $peminjaman->nama_depan ?> - <?php echo $peminjaman->nama_belakang ?></td>
                                     <td style="text-align: center"><?php if(isset($peminjaman->d_penyetuju)) { echo $peminjaman->d_penyetuju ;echo "-"; echo $peminjaman->b_penyetuju; }else echo "-"; ?></td>
-                                    <td style="text-align: center"><?php if(isset($peminjaman->flag)) { echo $peminjaman->d_penyetuju ."-". $peminjaman->b_penyetuju ; }else echo "-"; ?></td>
                                     <td style="text-align:center">
                                         <?php
                                         echo anchor(site_url('peminjaman/datadetail/' . $peminjaman->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';

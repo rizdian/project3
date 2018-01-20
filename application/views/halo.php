@@ -12,7 +12,6 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <h3><?php echo $page_var['t_persetujuan']; ?></h3>
-
                         <p>Butuh Persetujuan</p>
                     </div>
                     <div class="icon">
