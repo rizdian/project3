@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         User
-        <small>Create</small>
+        <small>Buat</small>
     </h1>
 </section>
 <section class="content">
@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <button type="submit" id='btn'
-                                        class="btn btn-primary">Create
+                                        class="btn btn-primary">Buat
                                 </button>
                                 <a href="<?php echo site_url('auth/index') ?>" class="btn btn-default">Cancel</a>
                             </div>

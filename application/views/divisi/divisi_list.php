@@ -10,7 +10,7 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div class="col-md-4">
-                        <?php echo anchor(site_url('divisi/create'), 'Create', 'class="btn btn-primary"'); ?>
+                        <?php echo anchor(site_url('divisi/create'), 'Buat', 'class="btn btn-primary"'); ?>
                     </div>
                     <div class="col-md-4 text-center">
                         <div style="margin-top: 8px" id="message">

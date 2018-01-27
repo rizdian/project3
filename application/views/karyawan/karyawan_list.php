@@ -10,12 +10,17 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div class="col-md-4">
-                        <?php echo anchor(site_url('karyawan/create'), 'Create', 'class="btn btn-primary"'); ?>
+                        <?php echo anchor(site_url('karyawan/create'), 'Buat', 'class="btn btn-primary"'); ?>
                     </div>
                     <div class="col-md-4 text-center">
-                        <div style="margin-top: 8px" id="message">
-                            <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                        </div>
+                        <?php if($this->session->userdata('message')) { ?>
+                            <div id="message" class="alert alert-info alert-dismissible show">
+                                <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <?php } ?>
                     </div>
                     <div class="col-md-3 text-right">
                     </div>

@@ -77,7 +77,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <input type="hidden" name="flag" value="<?php echo $page_header->flag; ?>"/>
-                                <button type="submit" id='btn' value="create"
+                                <button type="submit" id='btn' value="Buat"
                                         class="btn btn-primary"><?php echo $page_var['button'] ?></button>
                             </div>
                         </div>

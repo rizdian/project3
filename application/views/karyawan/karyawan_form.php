@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         Karyawan
-        <small>Create</small>
+        <small>Buat</small>
     </h1>
 </section>
 <section class="content">
