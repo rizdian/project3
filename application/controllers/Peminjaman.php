@@ -212,4 +212,23 @@ class Peminjaman extends CI_Controller
 
     }
 
+    public function kembali($id){
+        $dataTransaksi = array(
+            'status_kembali' => '1',
+        );
+        $dataKendaraan = array(
+            'status' => '0'
+        );
+
+        $data = $this->Peminjaman_model->get_by_id($id);
+        $idKendaraan = $data->id_kendaraan;
+
+        $this->Peminjaman_model->get_update_kambali($id,$dataTransaksi);
+        $this->Kendaraan_model->update($idKendaraan, $dataKendaraan);
+
+        $this->session->set_flashdata('message', 'Mobil Telah Dikambalikan');
+        redirect(site_url('peminjaman/data'));
+
+    }
+
 }

@@ -90,6 +90,10 @@ class Kendaraan_model extends CI_Model
         $hasil = $query->num_rows();
         return $hasil;
     }
+    function get_update_kambali($id, $data){
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table, $data);
+    }
 }
 
 /* End of file Kendaraan_model.php */

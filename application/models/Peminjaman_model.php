@@ -104,4 +104,9 @@ class Peminjaman_model extends CI_Model
                                     WHERE p.id = $id");
         return $query->row();
     }
+
+    function get_update_kambali($id, $data){
+        $this->db->where($this->id, $id);
+        $this->db->update($this->table, $data);
+    }
 }

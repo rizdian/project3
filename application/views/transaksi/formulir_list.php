@@ -53,8 +53,11 @@
                                     <td style="text-align:center">
                                         <?php
                                         echo anchor(site_url('peminjaman/datadetail/' . $peminjaman->id), '<i class="glyphicon glyphicon-list-alt"></i>','title="Read", class="btn btn-xs btn-primary"'); echo ' ';
-                                        if ($peminjaman->flag == 5)
+                                        if ($peminjaman->flag == 5 && $peminjaman->status_kembali == '0'){
                                             echo anchor(site_url('peminjaman/cetak/' . $peminjaman->id), '<i class="glyphicon glyphicon-print"></i>','title="Print", class="btn btn-xs btn-default"'); echo ' ';
+                                            if ($peminjaman->status_kembali == '0')
+                                                echo anchor(site_url('peminjaman/kembali/' . $peminjaman->id), '<i class="glyphicon glyphicon-repeat"></i>','title="Print", class="btn btn-xs btn-warning"'); echo ' ';
+                                        }
                                         ?>
                                     </td>
                                 </tr>

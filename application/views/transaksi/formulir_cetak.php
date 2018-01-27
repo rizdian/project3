@@ -104,7 +104,7 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary" id="cetak">Cetak</button>
+                                <button type="button" class="btn btn-primary hidden-print" id="cetak">Cetak</button>
                                 <a href="<?php echo site_url('peminjaman/data') ?>" class="btn btn-default hidden-print">Kembali</a>
                             </div>
                         </div>
