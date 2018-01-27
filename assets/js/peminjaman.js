@@ -27,3 +27,5 @@ $('.input-daterange').datepicker({
 $("#cetak").click(function(){
     window.print();
 });
+
+$('.alert').alert()

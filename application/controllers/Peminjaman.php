@@ -70,7 +70,7 @@ class Peminjaman extends CI_Controller
                 'status' => '1'
             );
             $this->Kendaraan_model->update($this->input->post('kendaraan', TRUE), $dataKendaraan);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Formulir Anda Sudah Di Ajukan');
             redirect(site_url('peminjaman'));
         }
     }
@@ -221,6 +221,7 @@ class Peminjaman extends CI_Controller
         );
 
         $data = $this->Peminjaman_model->get_by_id($id);
+
         $idKendaraan = $data->id_kendaraan;
 
         $this->Peminjaman_model->get_update_kambali($id,$dataTransaksi);
