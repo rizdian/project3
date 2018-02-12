@@ -17,42 +17,42 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="int">Nip <?php echo form_error('nip') ?></label>
-                                <input type="text" class="form-control" name="nip" id="nip" placeholder="Nip"
+                                <input type="text" class="form-control" name="nip" id="nip" placeholder="Nip" maxlength="10"
                                        value="<?php echo $page_var['nip']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="int">No Ktp <?php echo form_error('no_ktp') ?></label>
-                                <input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="No Ktp"
+                                <input type="text" class="form-control" name="no_ktp" id="no_ktp" placeholder="No Ktp" maxlength="20"
                                        value="<?php echo $page_var['no_ktp']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="varchar">Nama Depan <?php echo form_error('nama_depan') ?></label>
-                                <input type="text" class="form-control" name="nama_depan" id="nama_depan"
+                                <input type="text" class="form-control" name="nama_depan" id="nama_depan" maxlength="10"
                                        placeholder="Nama Depan" value="<?php echo $page_var['nama_depan']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="varchar">Nama Tengah <?php echo form_error('nama_tengah') ?></label>
-                                <input type="text" class="form-control" name="nama_tengah" id="nama_tengah"
+                                <input type="text" class="form-control" name="nama_tengah" id="nama_tengah" maxlength="10"
                                        placeholder="Nama Tengah" value="<?php echo $page_var['nama_tengah']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="varchar">Nama Belakang <?php echo form_error('nama_belakang') ?></label>
-                                <input type="text" class="form-control" name="nama_belakang" id="nama_belakang"
+                                <input type="text" class="form-control" name="nama_belakang" id="nama_belakang" maxlength="10"
                                        placeholder="Nama Belakang" value="<?php echo $page_var['nama_belakang']; ?>"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="varchar">Tempat Lahir <?php echo form_error('tempat_lahir') ?></label>
-                                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir"
+                                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" maxlength="15"
                                        placeholder="Tempat Lahir" value="<?php echo $page_var['tempat_lahir']; ?>"/>
                             </div>
                         </div>

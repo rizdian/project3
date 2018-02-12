@@ -16,17 +16,17 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="varchar">No Polisi <?php echo form_error('no_polisi') ?></label>
-                            <input type="text" class="form-control" name="no_polisi" id="no_polisi"
+                            <input type="text" class="form-control" name="no_polisi" id="no_polisi" maxlength="10"
                                    placeholder="No Polisi" value="<?php echo $page_var['no_polisi']; ?>"/>
                         </div>
                         <div class="form-group">
                             <label for="varchar">Nama <?php echo form_error('nama') ?></label>
-                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama"
+                            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" maxlength="10"
                                    value="<?php echo $page_var['nama']; ?>"/>
                         </div>
                         <div class="form-group">
                             <label for="varchar">Warna <?php echo form_error('warna') ?></label>
-                            <input type="text" class="form-control" name="warna" id="warna" placeholder="Warna"
+                            <input type="text" class="form-control" name="warna" id="warna" placeholder="Warna" maxlength="10"
                                    value="<?php echo $page_var['warna']; ?>"/>
                         </div>
                         <div class="form-group">

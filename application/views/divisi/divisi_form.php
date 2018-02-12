@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="int">Nama <?php echo form_error('nama') ?></label>
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama"
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" maxlength="20"
                                        value="<?php echo $page_var['nama']; ?>"/>
                             </div>
                         </div>
