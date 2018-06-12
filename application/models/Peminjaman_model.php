@@ -47,7 +47,7 @@ class Peminjaman_model extends CI_Model
     {
         $this->db->insert($this->table, $data);
         $insert_id = $this->db->insert_id();
-        return  $insert_id;
+        return $insert_id;
     }
 
     // delete data
@@ -61,7 +61,7 @@ class Peminjaman_model extends CI_Model
     {
         $query = $this->db->query("SELECT *
                                      FROM peminjaman
-                                    WHERE flag = '".$id."'");
+                                    WHERE flag = '" . $id . "'");
         $hasil = $query->num_rows();
         return $hasil;
     }
@@ -87,12 +87,17 @@ class Peminjaman_model extends CI_Model
                                   WHERE   id = " . $idPeminjam . "");
     }
 
-    function get_tolak($idPeminjam, $idPenytuju)
+    function get_tolak($idPeminjam, $idPenytuju, $reason)
     {
-        return $this->db->query("UPDATE peminjaman SET flag = 0,status_kembali = '1',id_penyetuju = " . $idPenytuju . " WHERE id = " . $idPeminjam . "");
+        return $this->db->query("UPDATE peminjaman 
+                                  SET flag = 0,
+                                      status_kembali = '1',
+                                      id_penyetuju = " . $idPenytuju . ", 
+                                      reason = '" . $reason . "' WHERE id = " . $idPeminjam . "");
     }
 
-    function get_by_id_detail($id){
+    function get_by_id_detail($id)
+    {
         $query = $this->db->query("SELECT p.*, ke.no_polisi , ke.nama, ka.nama_depan, ka.nama_belakang, ku.nama_depan AS d_penyetuju, ku.nama_belakang AS b_penyetuju
                                           FROM peminjaman p
                                     INNER JOIN kendaraan ke
@@ -105,7 +110,8 @@ class Peminjaman_model extends CI_Model
         return $query->row();
     }
 
-    function get_update_kambali($id, $data){
+    function get_update_kambali($id, $data)
+    {
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }

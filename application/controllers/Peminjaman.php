@@ -13,9 +13,6 @@ class Peminjaman extends CI_Controller
         parent::__construct();
         $this->load->library(array('ion_auth', 'form_validation', 'Template'));
         $this->load->model(['Peminjaman_model', 'Kendaraan_model', 'Detail_Peminjaman_model']);
-        if ($this->ion_auth->in_group('superadmin')) {
-            redirect('auth', 'refresh');
-        }
     }
 
     public function index()

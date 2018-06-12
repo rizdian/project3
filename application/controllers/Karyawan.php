@@ -207,13 +207,13 @@ class Karyawan extends CI_Controller
 
     public function _rules($update = false)
     {
-        if ($update){
+//        if ($update){
             $this->form_validation->set_rules('nip', 'nip', 'trim|required|max_length[10]');
             $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required|max_length[20]');
-        }else{
+        /*}else{
             $this->form_validation->set_rules('nip', 'nip', 'trim|required|is_unique[karyawan.nip|max_length[10]]');
             $this->form_validation->set_rules('no_ktp', 'no ktp', 'trim|required|is_unique[karyawan.no_ktp]|max_length[20]');
-        }
+        }*/
         $this->form_validation->set_rules('nama_depan', 'nama depan', 'trim|required|max_length[10]');
         $this->form_validation->set_rules('nama_tengah', 'nama tengah', 'trim|max_length[10]');
         $this->form_validation->set_rules('nama_belakang', 'nama belakang', 'trim|max_length[10]');
