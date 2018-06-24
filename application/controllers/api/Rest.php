@@ -9,13 +9,18 @@ use \Firebase\JWT\JWT;
 
 class Rest extends REST_Controller
 {
-    private $secretkey = 'AncientRiz2018'; //ubah dengan kode rahasia apapun
+    protected $secretkey = 'AncientRiz2018'; //ubah dengan kode rahasia apapun
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->model(['Karyawan_model']);
+    }
+
+    protected function getSecretKey()
+    {
+        return $this->secretkey;
     }
 
     // method untuk melihat token pada user

@@ -6,15 +6,23 @@
  * Time: 11.35
  */
 require APPPATH . 'controllers/api/Rest.php';
+use \Firebase\JWT\JWT;
 
 class Peminjaman extends Rest
 {
+
+    private $decode = null;
+
     function __construct($config = 'rest')
     {
         parent::__construct($config);
         $this->load->library(array('ion_auth', 'form_validation'));
         $this->load->model(['Karyawan_model', 'Peminjaman_model', 'Detail_Peminjaman_model','Kendaraan_model']);
         $this->cektoken();
+
+
+        $jwt = $this->input->get_request_header('Authorization');
+        $this->decode = JWT::decode($jwt, parent::getSecretKey(), array('HS256'));
     }
 
     function index_get()
@@ -87,7 +95,7 @@ class Peminjaman extends Rest
 
     private function _getKryByLogin()
     {
-        $isLogin = $this->ion_auth->user()->row()->id_karyawan;
+        $isLogin = $this->decode->idKry;
         $getUser = $this->Karyawan_model->get_by_id($isLogin);
 
         return ($getUser ? $getUser : null);
