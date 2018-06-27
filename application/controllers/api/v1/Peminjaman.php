@@ -6,6 +6,7 @@
  * Time: 11.35
  */
 require APPPATH . 'controllers/api/Rest.php';
+
 use \Firebase\JWT\JWT;
 
 class Peminjaman extends Rest
@@ -17,7 +18,7 @@ class Peminjaman extends Rest
     {
         parent::__construct($config);
         $this->load->library(array('ion_auth', 'form_validation'));
-        $this->load->model(['Karyawan_model', 'Peminjaman_model', 'Detail_Peminjaman_model','Kendaraan_model']);
+        $this->load->model(array('Karyawan_model', 'Peminjaman_model', 'Detail_Peminjaman_model', 'Kendaraan_model'));
         $this->cektoken();
 
 
@@ -29,26 +30,27 @@ class Peminjaman extends Rest
     {
         $user = $this->_getKryByLogin();
         $data = $this->Peminjaman_model->get_status_list($user->flag);
-        $this->response([
+        $this->response(array(
             'status' => 1,
             'message' => 'Sukses',
             'data' => $data
-        ], REST_Controller::HTTP_OK);
+        ), REST_Controller::HTTP_OK);
     }
 
     function all_get()
     {
         $data = $this->Peminjaman_model->get_all();
-        $this->response([
+        $this->response(array(
             'status' => 1,
             'message' => 'Sukses',
             'data' => $data
-        ], REST_Controller::HTTP_OK);
+        ), REST_Controller::HTTP_OK);
     }
 
-    public function acc_post($id)
+    public function acc_post()
     {
         $user = $this->_getKryByLogin();
+        $id = $this->post('id');
         $flag = $this->_getFromPeminjamanId($id);
         $peminjaman = $this->Peminjaman_model->get_acc($id, $user->id);
         if ($peminjaman) {
@@ -63,13 +65,14 @@ class Peminjaman extends Rest
         }
     }
 
-    public function reject_post($id)
+    public function reject_post()
     {
         $this->form_validation->set_rules('reason', 'reason', 'trim|required');
-        if ($this->form_validation->run() === TRUE){
+        if ($this->form_validation->run() === TRUE) {
 
             $reason = $this->input->post('reason', TRUE);
             $user = $this->_getKryByLogin();
+            $id = $this->post('id');
             $mobil = $this->_getFromPeminjamanId($id);
             $peminjaman = $this->Peminjaman_model->get_tolak($id, $user->id, $reason);
             if ($peminjaman) {
@@ -88,7 +91,7 @@ class Peminjaman extends Rest
             } else {
                 $this->_response(0, 'Peminjaman Gagal Di Tolak', REST_Controller::HTTP_BAD_REQUEST);
             }
-        }else{
+        } else {
             $this->_response(0, 'Alasan Tidak Boleh Kosong', REST_Controller::HTTP_BAD_REQUEST);
         }
     }
