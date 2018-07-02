@@ -96,6 +96,21 @@ class Peminjaman extends Rest
         }
     }
 
+    public function detail_post()
+    {
+        $id = $this->post('id');
+        $dataDetail = $this->Detail_Peminjaman_model->get_by_id($id);
+        if ($id) {
+            $this->response(array(
+                'status' => 1,
+                'message' => 'Sukses',
+                'data' => $dataDetail
+            ), REST_Controller::HTTP_OK);
+        } else {
+            $this->_response(0, 'Id Kosong', REST_Controller::HTTP_BAD_REQUEST);
+        }
+    }
+
     private function _getKryByLogin()
     {
         $isLogin = $this->decode->idKry;
@@ -112,9 +127,9 @@ class Peminjaman extends Rest
 
     function _response($status, $message, $code)
     {
-        $this->response([
+        $this->response(array(
             'status' => $status,
             'message' => $message
-        ], $code);
+        ), $code);
     }
 }
