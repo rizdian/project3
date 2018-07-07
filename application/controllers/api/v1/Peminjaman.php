@@ -67,9 +67,9 @@ class Peminjaman extends Rest
 
     public function reject_post()
     {
+        $this->form_validation->set_rules('id', 'id', 'trim|required');
         $this->form_validation->set_rules('reason', 'reason', 'trim|required');
         if ($this->form_validation->run() === TRUE) {
-
             $reason = $this->input->post('reason', TRUE);
             $user = $this->_getKryByLogin();
             $id = $this->post('id');
